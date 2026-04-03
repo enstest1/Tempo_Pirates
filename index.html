@@ -126,6 +126,23 @@ section{position:relative;z-index:10;padding:88px 24px;}
 .toko-val{font-family:'Cinzel Decorative',serif;font-size:clamp(20px,3.5vw,32px);font-weight:700;color:var(--cream);line-height:1.1;}
 .toko-unit{font-family:'Bebas Neue',sans-serif;font-size:12px;color:var(--gold);opacity:0.5;margin-top:6px;letter-spacing:0.2em;}
 
+/* ── FAUCET ── */
+.faucet-section{background:linear-gradient(135deg,var(--bg) 0%,#0d0a1a 100%);border-top:3px solid var(--gold);border-bottom:3px solid var(--gold);overflow:hidden;}
+.faucet-inner{max-width:700px;margin:0 auto;text-align:center;}
+.faucet-box{background:linear-gradient(135deg,#f5c51808,#c0392b08);border:2px solid #f5c51835;padding:48px 40px;position:relative;margin-top:12px;}
+.faucet-box::before{content:'';position:absolute;top:-2px;left:60px;right:60px;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.faucet-box::after{content:'';position:absolute;bottom:-2px;left:60px;right:60px;height:3px;background:linear-gradient(90deg,transparent,var(--red),transparent);}
+.faucet-amount{font-family:'Cinzel Decorative',serif;font-size:clamp(48px,10vw,80px);font-weight:900;color:var(--gold);line-height:1;margin-bottom:8px;text-shadow:0 0 40px #f5c51840;}
+.faucet-label{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:0.4em;color:var(--cream);opacity:0.5;text-transform:uppercase;margin-bottom:24px;}
+.faucet-desc{font-size:15px;line-height:1.9;color:var(--cream);opacity:0.7;font-style:italic;margin-bottom:28px;max-width:520px;margin-left:auto;margin-right:auto;}
+.faucet-desc strong{color:var(--gold);font-style:normal;}
+.faucet-perks{display:flex;justify-content:center;gap:32px;margin-bottom:32px;flex-wrap:wrap;}
+.faucet-perk{text-align:center;}
+.faucet-perk-icon{font-size:28px;margin-bottom:6px;}
+.faucet-perk-txt{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:0.25em;color:var(--gold);opacity:0.6;text-transform:uppercase;}
+.btn-faucet{display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,var(--gold),#c49a10);color:#000;font-family:'Bebas Neue',sans-serif;font-size:22px;padding:18px 52px;text-decoration:none;text-transform:uppercase;letter-spacing:0.2em;border:none;cursor:pointer;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);animation:glow 2.5s ease-in-out infinite;transition:transform 0.1s;}
+.btn-faucet:hover{transform:scale(1.06);}
+
 /* ── HOW TO BUY ── */
 .buy-section{background:var(--bg);}
 .steps{max-width:780px;margin:0 auto;}
@@ -166,6 +183,7 @@ footer{background:#000;color:var(--cream);text-align:center;padding:36px 24px;fo
     <a href="#loop">The Loop</a>
     <a href="#map">Treasure Map</a>
     <a href="#nft">NFT</a>
+    <a href="#faucet">Free TPirate</a>
     <a href="#buy">How to Buy</a>
   </div>
   <a href="https://app.uniswap.org/swap?chain=tempo&outputCurrency=0x8753bB308BCb6972D298c03f997d10CcE781D65D" target="_blank" class="nav-cta">Buy TPirate</a>
@@ -599,6 +617,29 @@ footer{background:#000;color:var(--cream);text-align:center;padding:36px 24px;fo
     <div class="chain-link"></div>
   </div>
 </section>
+
+<!-- FAUCET -->
+<section id="faucet" class="faucet-section">
+  <h2 class="sec-title">Free TPirate</h2>
+  <p class="sec-sub">☠ claim your share, anon ☠</p>
+  <div class="faucet-inner">
+    <div class="faucet-box">
+      <div class="faucet-amount">1,000</div>
+      <div class="faucet-label">Free TPirate · Every 24 Hours</div>
+      <p class="faucet-desc">No purchase needed. Connect your wallet, click claim, and get <strong>1,000 TPirate</strong> sent to your wallet. Come back every 24 hours for more. Stack enough to <strong>mint a Pirate NFT</strong> when the time comes. All you need is a tiny bit of pathUSD for gas (less than $0.01).</p>
+      <div class="faucet-perks">
+        <div class="faucet-perk"><div class="faucet-perk-icon">🆓</div><div class="faucet-perk-txt">100% Free</div></div>
+        <div class="faucet-perk"><div class="faucet-perk-icon">⏰</div><div class="faucet-perk-txt">Every 24hrs</div></div>
+        <div class="faucet-perk"><div class="faucet-perk-icon">☠</div><div class="faucet-perk-txt">Stack for NFT Mint</div></div>
+        <div class="faucet-perk"><div class="faucet-perk-icon">⛽</div><div class="faucet-perk-txt">&lt; $0.01 Gas</div></div>
+      </div>
+      <a href="http://localhost:5173" target="_blank" class="btn-faucet">🪙 Claim Free TPirate</a>
+      <p style="margin-top:16px;font-size:10px;opacity:0.25;letter-spacing:0.2em;text-transform:uppercase;font-family:'Bebas Neue',sans-serif;">On-chain faucet · 24hr cooldown per wallet · no tricks</p>
+    </div>
+  </div>
+</section>
+
+<div class="stripe stripe-sm"></div>
 
 <!-- HOW TO BUY -->
 <section id="buy" class="buy-section">
