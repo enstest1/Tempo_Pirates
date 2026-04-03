@@ -3,7 +3,8 @@ import artifact from '../abi/TempoPirate.json'
 const abi = artifact.abi
 
 const CONTRACT = import.meta.env.VITE_TPIRATE_ADDRESS as `0x${string}`
-const DECIMALS  = 1_000_000n
+const DECIMALS      = 1_000_000n
+const TEMPO_CHAIN_ID = 4217
 
 function fmt(raw: bigint): string {
   const whole = raw / DECIMALS
@@ -23,7 +24,7 @@ function formatCooldown(secondsLeft: number): string {
 
 export function TokenInfo() {
   const { address } = useAccount()
-  const opts         = { address: CONTRACT, abi, refetchInterval: 10_000 }
+  const opts         = { address: CONTRACT, abi, chainId: TEMPO_CHAIN_ID, refetchInterval: 10_000 }
 
   const { data: name }        = useReadContract({ ...opts, functionName: 'name' })
   const { data: symbol }      = useReadContract({ ...opts, functionName: 'symbol' })

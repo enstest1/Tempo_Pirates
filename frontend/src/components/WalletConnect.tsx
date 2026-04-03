@@ -1,15 +1,20 @@
-import { useAccount, useConnect, useDisconnect } from 'wagmi'
+import { useAccount, useConnect, useDisconnect, useSwitchChain } from 'wagmi'
 import { injected } from 'wagmi/connectors'
 
+const TEMPO_CHAIN_ID = 4217
+
 export function WalletConnect() {
-  const { address, isConnected } = useAccount()
-  const { connect }              = useConnect()
-  const { disconnect }           = useDisconnect()
+  const { address, isConnected, chain } = useAccount()
+  const { connect }                     = useConnect()
+  const { disconnect }                  = useDisconnect()
+  const { switchChain }                 = useSwitchChain()
+
+  const wrongChain = isConnected && chain?.id !== TEMPO_CHAIN_ID
 
   const truncate = (addr: string) =>
     `${addr.slice(0, 6)}...${addr.slice(-4)}`
 
-  async function addTempoToMetaMask() {
+  async function addTempoAndSwitch() {
     if (!window.ethereum) return
     try {
       await window.ethereum.request({
@@ -29,25 +34,29 @@ export function WalletConnect() {
     }
   }
 
+  function handleSwitchToTempo() {
+    switchChain({ chainId: TEMPO_CHAIN_ID })
+  }
+
   return (
     <div
       style={{
         background:   '#111118',
-        border:       '1px solid #f5c51830',
+        border:       wrongChain ? '1px solid #c0392b' : '1px solid #f5c51830',
         borderRadius: 12,
         padding:      24,
-        boxShadow:    '0 0 20px #f5c51808',
+        boxShadow:    wrongChain ? '0 0 20px #c0392b20' : '0 0 20px #f5c51808',
         display:      'flex',
         flexDirection: 'column',
         gap:          12,
       }}
       onMouseEnter={e => {
         ;(e.currentTarget as HTMLDivElement).style.boxShadow =
-          '0 0 30px #f5c51815'
+          wrongChain ? '0 0 30px #c0392b30' : '0 0 30px #f5c51815'
       }}
       onMouseLeave={e => {
         ;(e.currentTarget as HTMLDivElement).style.boxShadow =
-          '0 0 20px #f5c51808'
+          wrongChain ? '0 0 20px #c0392b20' : '0 0 20px #f5c51808'
       }}
     >
       <div
@@ -57,8 +66,8 @@ export function WalletConnect() {
           alignItems:     'center',
         }}
       >
-        <span style={{ color: '#f5c518', fontWeight: 600, fontSize: 14 }}>
-          Tempo Mainnet
+        <span style={{ color: wrongChain ? '#c0392b' : '#f5c518', fontWeight: 600, fontSize: 14 }}>
+          {wrongChain ? `Wrong Network (${chain?.name ?? 'Unknown'})` : 'Tempo Mainnet'}
         </span>
         {isConnected && address && (
           <span
@@ -76,6 +85,41 @@ export function WalletConnect() {
           </span>
         )}
       </div>
+
+      {wrongChain && (
+        <div
+          style={{
+            background:   '#c0392b18',
+            border:       '1px solid #c0392b40',
+            borderRadius: 8,
+            padding:      '10px 14px',
+            display:      'flex',
+            alignItems:   'center',
+            justifyContent: 'space-between',
+            gap:          12,
+          }}
+        >
+          <span style={{ color: '#c0392b', fontSize: 13, fontWeight: 500 }}>
+            Switch to Tempo Chain to use the faucet
+          </span>
+          <button
+            onClick={handleSwitchToTempo}
+            style={{
+              background:   '#c0392b',
+              border:       'none',
+              borderRadius: 6,
+              padding:      '8px 16px',
+              color:        '#fff',
+              fontWeight:   600,
+              cursor:       'pointer',
+              fontSize:     13,
+              whiteSpace:   'nowrap',
+            }}
+          >
+            Switch Network
+          </button>
+        </div>
+      )}
 
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
         {isConnected ? (
@@ -96,7 +140,7 @@ export function WalletConnect() {
           </button>
         ) : (
           <button
-            onClick={() => connect({ connector: injected() })}
+            onClick={() => connect({ connector: injected(), chainId: TEMPO_CHAIN_ID })}
             style={{
               background:   '#f5c518',
               border:       'none',
@@ -113,7 +157,7 @@ export function WalletConnect() {
         )}
 
         <button
-          onClick={addTempoToMetaMask}
+          onClick={addTempoAndSwitch}
           style={{
             background:   'transparent',
             border:       '1px solid #f5c51840',

@@ -5,6 +5,7 @@ import artifact from '../abi/TempoPirate.json'
 const abi = artifact.abi
 
 const CONTRACT = import.meta.env.VITE_TPIRATE_ADDRESS as `0x${string}`
+const TEMPO_CHAIN_ID = 4217
 
 function formatCooldown(secondsLeft: number): string {
   const h = Math.floor(secondsLeft / 3600)
@@ -26,6 +27,7 @@ export function MintTokens() {
   const { data: lastMint, refetch } = useReadContract({
     address:         CONTRACT,
     abi,
+    chainId:         TEMPO_CHAIN_ID,
     functionName:    'lastMintTime',
     args:            address ? [address] : undefined,
     query:           { enabled: !!address, refetchInterval: 10_000 },
@@ -81,6 +83,7 @@ export function MintTokens() {
     writeContract({
       address:      CONTRACT,
       abi,
+      chainId:      TEMPO_CHAIN_ID,
       functionName: 'publicMint',
     })
   }
