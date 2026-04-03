@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TEMPO PIRATE · TPirate · Mint The Crew</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Cinzel+Decorative:wght@700;900&family=Bebas+Neue&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--gold:#f5c518;--gold2:#c49a10;--gold3:#7a5f08;--red:#c0392b;--bg:#06060e;--bg2:#0c0c1a;--bg3:#111122;--cream:#f0e8d0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--cream);font-family:'IM Fell English',Georgia,serif;overflow-x:hidden;cursor:crosshair;}
+#c{position:fixed;inset:0;pointer-events:none;z-index:1;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:0.04;pointer-events:none;z-index:9998;}
+body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.04) 3px,rgba(0,0,0,0.04) 4px);pointer-events:none;z-index:9997;}
+@keyframes glitch{0%,89%,100%{transform:translate(0);filter:none;}90%{transform:translate(-4px,1px);filter:hue-rotate(90deg);}91%{transform:translate(4px,-1px);}92%{transform:translate(0);}97%{transform:translate(3px,0);filter:saturate(5);}98%{transform:translate(-3px,0);filter:none;}}
+@keyframes glitch-red{0%,88%,100%{opacity:0;transform:translate(0);}89%{opacity:0.6;transform:translate(-6px,2px);}90%{transform:translate(6px,-2px);}92%{opacity:0;}}
+@keyframes float{0%,100%{transform:translateY(0) rotate(var(--r,0deg));}50%{transform:translateY(-18px) rotate(var(--r,0deg));}}
+@keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+@keyframes glow{0%,100%{box-shadow:0 0 20px #f5c51830,0 0 60px #f5c51810;}50%{box-shadow:0 0 50px #f5c518aa,0 0 120px #f5c51840;}}
+@keyframes glowText{0%,100%{text-shadow:3px 3px 0 #c0392b,0 0 30px #f5c51830;}50%{text-shadow:3px 3px 0 #c0392b,0 0 80px #f5c518cc;}}
+@keyframes flicker{0%,96%,100%{opacity:1;}97%{opacity:0.2;}98%{opacity:1;}99%{opacity:0.5;}}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.04);}}
+@keyframes slideUp{from{transform:translateY(60px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+@keyframes loopArrow{0%,100%{transform:translateX(0);}50%{transform:translateX(6px);}}
+@keyframes mapReveal{from{opacity:0;transform:scale(0.96);}to{opacity:1;transform:scale(1);}}
+.bgw{position:fixed;font-family:'Bebas Neue',sans-serif;font-size:clamp(80px,14vw,200px);color:var(--gold);opacity:0.012;text-transform:uppercase;pointer-events:none;z-index:0;white-space:nowrap;}
+.stripe{height:8px;background:repeating-linear-gradient(-45deg,var(--gold) 0,var(--gold) 8px,#000 8px,#000 16px);}
+.stripe-sm{height:4px;}
+.ticker-wrap{background:var(--gold);color:#000;overflow:hidden;padding:12px 0;white-space:nowrap;position:relative;z-index:20;border-top:3px solid #000;border-bottom:3px solid #000;}
+.ticker-inner{display:inline-flex;animation:ticker 22s linear infinite;}
+.ticker-item{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:0.25em;padding:0 36px;}
+.red-ticker-wrap{background:var(--red);overflow:hidden;padding:12px 0;white-space:nowrap;position:relative;z-index:15;transform:rotate(-1.2deg) scaleX(1.06);margin:48px 0;border-top:3px solid #000;border-bottom:3px solid #000;}
+.red-ticker-inner{display:inline-flex;animation:ticker 14s linear infinite;}
+.red-ticker-item{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:0.2em;padding:0 28px;color:#fff;}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:14px 32px;background:linear-gradient(to bottom,rgba(6,6,14,0.95),transparent);backdrop-filter:blur(4px);}
+.nav-logo{font-family:'Pirata One',cursive;font-size:22px;color:var(--gold);text-shadow:0 0 20px #f5c51860;animation:flicker 8s infinite;}
+.nav-links{display:flex;gap:24px;}
+.nav-links a{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:0.2em;color:var(--cream);opacity:0.6;text-decoration:none;text-transform:uppercase;transition:all 0.2s;}
+.nav-links a:hover{opacity:1;color:var(--gold);}
+.nav-cta{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:0.2em;background:var(--gold);color:#000;padding:8px 24px;text-decoration:none;text-transform:uppercase;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);transition:all 0.15s;}
+.nav-cta:hover{background:#fff;}
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;z-index:10;overflow:hidden;}
+.hero-bg-glow{position:absolute;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,#f5c51808 0%,transparent 65%);top:50%;left:50%;transform:translate(-50%,-50%);animation:glow 4s ease-in-out infinite;pointer-events:none;}
+.hero-pill{display:inline-flex;align-items:center;gap:10px;background:#f5c51810;border:1px solid #f5c51845;padding:8px 22px;font-size:11px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;font-family:'Bebas Neue',sans-serif;}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#22ff88;box-shadow:0 0 8px #22ff88;animation:pulse 1.4s ease-in-out infinite;}
+.hero-eyebrow{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:0.5em;color:var(--red);text-transform:uppercase;margin-bottom:16px;}
+.hero-title{font-family:'Pirata One',cursive;font-size:clamp(60px,14vw,160px);color:var(--gold);line-height:0.88;text-transform:uppercase;letter-spacing:0.01em;position:relative;z-index:2;animation:glowText 3s ease-in-out infinite,flicker 9s infinite;text-shadow:3px 3px 0 #c0392b,6px 6px 0 #000;}
+.hero-title-ghost{position:absolute;top:0;left:50%;transform:translateX(-50%);font-family:'Pirata One',cursive;font-size:inherit;color:#ff0055;line-height:inherit;text-transform:uppercase;letter-spacing:inherit;animation:glitch-red 5s infinite;pointer-events:none;white-space:nowrap;}
+.hero-symbol{font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,4vw,32px);letter-spacing:0.5em;color:var(--cream);opacity:0.55;margin-top:12px;text-transform:uppercase;}
+.hero-nft-badge{margin-top:20px;display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,#c0392b22,#f5c51822);border:1px solid #f5c51840;padding:12px 28px;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:0.2em;color:var(--cream);position:relative;z-index:2;flex-wrap:wrap;justify-content:center;}
+.badge-arrow{color:var(--gold);font-size:20px;animation:loopArrow 1s ease-in-out infinite;}
+.logo-area{margin:32px 0 24px;animation:float 5s ease-in-out infinite;position:relative;z-index:2;filter:drop-shadow(0 0 30px #f5c51840);}
+.logo-area:hover{filter:drop-shadow(0 0 60px #f5c518aa);cursor:pointer;}
+.hero-btns{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap;justify-content:center;position:relative;z-index:2;}
+.btn-gold{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:#000;font-family:'Bebas Neue',sans-serif;font-size:20px;padding:16px 44px;text-decoration:none;text-transform:uppercase;letter-spacing:0.2em;border:none;cursor:pointer;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);animation:glow 2.5s ease-in-out infinite;transition:transform 0.1s;}
+.btn-gold:hover{transform:scale(1.06);}
+.btn-red{display:inline-flex;align-items:center;gap:10px;background:var(--red);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:20px;padding:16px 44px;text-decoration:none;text-transform:uppercase;letter-spacing:0.2em;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);transition:all 0.15s;}
+.btn-red:hover{background:#e74c3c;transform:scale(1.04);}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--gold);font-family:'Bebas Neue',sans-serif;font-size:18px;padding:14px 36px;text-decoration:none;text-transform:uppercase;letter-spacing:0.2em;border:1.5px solid var(--gold);clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);transition:all 0.15s;}
+.btn-outline:hover{background:var(--gold);color:#000;}
+.hero-disclaimer{margin-top:24px;font-size:10px;opacity:0.2;letter-spacing:0.3em;text-transform:uppercase;position:relative;z-index:2;font-style:italic;}
+.scatter{position:absolute;font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);opacity:0.18;pointer-events:none;}
+.fskulls{position:absolute;pointer-events:none;font-size:var(--fs,28px);opacity:var(--fo,0.05);color:var(--gold);animation:float var(--fd,6s) ease-in-out infinite;animation-delay:var(--fda,0s);}
+section{position:relative;z-index:10;padding:88px 24px;}
+.sec-title{font-family:'Pirata One',cursive;font-size:clamp(38px,7vw,80px);color:var(--gold);text-transform:uppercase;text-align:center;margin-bottom:8px;letter-spacing:0.02em;text-shadow:2px 2px 0 var(--red);}
+.sec-sub{text-align:center;font-family:'Bebas Neue',sans-serif;color:var(--cream);opacity:0.35;font-size:12px;letter-spacing:0.45em;text-transform:uppercase;margin-bottom:52px;}
+
+/* ── THE LOOP ── */
+.loop-section{background:var(--bg2);border-top:1px solid #f5c51825;border-bottom:1px solid #f5c51825;}
+.loop-inner{max-width:1000px;margin:0 auto;}
+.loop-flow{display:flex;align-items:flex-start;justify-content:center;gap:0;flex-wrap:wrap;margin-bottom:52px;}
+.loop-node{display:flex;flex-direction:column;align-items:center;text-align:center;padding:20px 16px;min-width:140px;}
+.loop-icon{width:68px;height:68px;border-radius:50%;background:var(--bg);border:2px solid #f5c51835;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:14px;transition:all 0.3s;}
+.loop-node:hover .loop-icon{border-color:var(--gold);box-shadow:0 0 24px #f5c51840;}
+.loop-node.hl .loop-icon{border-color:var(--gold);border-width:3px;background:linear-gradient(135deg,#f5c51812,var(--bg));animation:glow 2s ease-in-out infinite;}
+.loop-lbl{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase;margin-bottom:5px;}
+.loop-desc{font-size:11px;color:var(--cream);opacity:0.45;font-style:italic;line-height:1.5;max-width:130px;}
+.loop-arr{font-size:22px;color:var(--gold);opacity:0.45;padding:0 2px;margin-bottom:30px;align-self:center;animation:loopArrow 1.2s ease-in-out infinite;}
+.loop-callout{background:linear-gradient(135deg,#c0392b18,#f5c51812);border:1px solid #f5c51835;padding:32px 40px;text-align:center;position:relative;max-width:680px;margin:0 auto;}
+.loop-callout::before{content:'';position:absolute;top:-1px;left:40px;right:40px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.loop-callout::after{content:'';position:absolute;bottom:-1px;left:40px;right:40px;height:2px;background:linear-gradient(90deg,transparent,var(--red),transparent);}
+.loop-callout h3{font-family:'Pirata One',cursive;font-size:26px;color:var(--gold);text-transform:uppercase;margin-bottom:12px;}
+.loop-callout p{font-size:15px;line-height:1.8;color:var(--cream);opacity:0.75;font-style:italic;}
+.loop-callout strong{color:var(--gold);font-style:normal;}
+
+/* ── MAP ── */
+.map-section{background:var(--bg3);overflow:hidden;}
+.map-outer{max-width:1020px;margin:0 auto;position:relative;}
+.map-frame{position:relative;padding:10px;background:linear-gradient(135deg,#3d2800,#1a1000,#3d2800);border:3px solid #7a5f08;}
+.map-frame::before{content:'';position:absolute;inset:6px;border:1px solid #f5c51830;pointer-events:none;z-index:2;}
+.map-svg-wrap{width:100%;animation:mapReveal 0.8s ease-out forwards;}
+
+/* ── NFT ── */
+.nft-section{background:var(--bg2);border-top:3px solid var(--red);}
+.nft-inner{max-width:960px;margin:0 auto;}
+.nft-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
+.nft-left h2{font-family:'Pirata One',cursive;font-size:clamp(36px,6vw,72px);color:var(--gold);text-transform:uppercase;line-height:0.9;text-shadow:2px 2px 0 var(--red);margin-bottom:20px;}
+.nft-left p{font-size:15px;line-height:1.9;color:var(--cream);opacity:0.7;margin-bottom:14px;font-style:italic;}
+.nft-stats{display:flex;gap:28px;margin:24px 0;flex-wrap:wrap;}
+.nft-stat-n{font-family:'Cinzel Decorative',serif;font-size:30px;font-weight:700;color:var(--gold);}
+.nft-stat-l{font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:0.25em;color:var(--cream);opacity:0.4;text-transform:uppercase;margin-top:3px;}
+.nft-right{display:flex;flex-direction:column;gap:16px;align-items:center;}
+.nft-card{width:100%;max-width:300px;border:2px solid var(--gold);background:linear-gradient(135deg,#1a0f0a,#0a060e);overflow:hidden;position:relative;animation:float 5s ease-in-out infinite;}
+.nft-card-top{width:100%;padding-top:100%;position:relative;background:radial-gradient(circle at 40% 35%,#1a1030,#0a0610);}
+.nft-card-art{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.nft-card-label{position:absolute;top:10px;left:0;right:0;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:0.4em;color:var(--gold);opacity:0.55;}
+.nft-card-bottom{padding:14px 16px;border-top:1px solid #f5c51830;display:flex;justify-content:space-between;align-items:center;}
+.nft-name{font-family:'Pirata One',cursive;font-size:16px;color:var(--gold);}
+.nft-price{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:0.2em;color:var(--cream);opacity:0.55;}
+.nft-qs{display:flex;gap:10px;width:100%;max-width:300px;}
+.nft-q{flex:1;background:var(--bg);border:1px solid #f5c51825;padding:14px;text-align:center;}
+.nft-q-n{font-family:'Cinzel Decorative',serif;font-size:22px;color:var(--gold);margin-bottom:3px;}
+.nft-q-l{font-family:'Bebas Neue',sans-serif;font-size:9px;letter-spacing:0.25em;color:var(--cream);opacity:0.35;text-transform:uppercase;}
+.soon-badge{display:inline-flex;align-items:center;gap:8px;background:var(--red);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:0.2em;padding:6px 16px;text-transform:uppercase;margin-bottom:16px;}
+
+/* ── TOKENOMICS ── */
+.toko-section{background:var(--bg2);}
+.toko-grid{max-width:960px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;}
+.toko-card{background:var(--bg);border:1px solid #f5c51820;padding:32px 20px;text-align:center;position:relative;overflow:hidden;transition:all 0.2s;}
+.toko-card:hover{border-color:#f5c51860;box-shadow:0 0 30px #f5c51818;transform:translateY(-4px) rotate(0deg) !important;}
+.toko-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.toko-lbl{font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:0.4em;color:var(--gold);opacity:0.55;text-transform:uppercase;margin-bottom:12px;}
+.toko-val{font-family:'Cinzel Decorative',serif;font-size:clamp(20px,3.5vw,32px);font-weight:700;color:var(--cream);line-height:1.1;}
+.toko-unit{font-family:'Bebas Neue',sans-serif;font-size:12px;color:var(--gold);opacity:0.5;margin-top:6px;letter-spacing:0.2em;}
+
+/* ── HOW TO BUY ── */
+.buy-section{background:var(--bg);}
+.steps{max-width:780px;margin:0 auto;}
+.step{display:flex;gap:28px;align-items:flex-start;padding:36px 0;border-bottom:1px solid #f5c51812;transition:all 0.2s;}
+.step:hover{padding-left:8px;}
+.step-n{font-family:'Cinzel Decorative',serif;font-size:64px;font-weight:900;color:var(--gold);opacity:0.15;line-height:1;min-width:90px;font-style:italic;}
+.step-body h3{font-family:'Pirata One',cursive;font-size:24px;color:var(--gold);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;}
+.step-body p{font-size:14px;line-height:1.8;color:var(--cream);opacity:0.6;}
+.step-body code{background:#f5c51812;color:var(--gold);padding:2px 8px;font-size:12px;font-family:'Courier New',monospace;}
+
+/* ── CTA ── */
+.cta-section{background:var(--gold);color:#000;text-align:center;padding:80px 24px;position:relative;overflow:hidden;}
+.cta-section::before,.cta-section::after{content:'☠  ☠  ☠  ☠  ☠  ☠  ☠  ☠  ☠  ☠  ☠  ☠  ☠  ☠  ☠  ☠';display:block;font-size:14px;letter-spacing:0.4em;opacity:0.15;margin-bottom:4px;font-family:'Bebas Neue',sans-serif;}
+.cta-section h2{font-family:'Pirata One',cursive;font-size:clamp(32px,6vw,72px);text-transform:uppercase;margin:20px 0 8px;text-shadow:3px 3px 0 rgba(0,0,0,0.2);}
+.cta-section p{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:0.35em;text-transform:uppercase;opacity:0.5;margin-bottom:12px;}
+.cta-steps{display:flex;justify-content:center;gap:0;margin:24px 0 36px;flex-wrap:wrap;}
+.cta-step{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:0.15em;text-transform:uppercase;padding:10px 18px;border-right:2px solid rgba(0,0,0,0.15);color:rgba(0,0,0,0.65);}
+.cta-step:last-child{border-right:none;}
+.cta-step span{display:block;font-size:20px;color:#000;font-weight:700;}
+.btn-dark{display:inline-flex;align-items:center;gap:12px;background:#000;color:var(--gold);font-family:'Bebas Neue',sans-serif;font-size:20px;padding:18px 52px;text-decoration:none;text-transform:uppercase;letter-spacing:0.2em;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);transition:all 0.15s;}
+.btn-dark:hover{background:var(--red);color:#fff;transform:scale(1.04);}
+footer{background:#000;color:var(--cream);text-align:center;padding:36px 24px;font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:0.3em;text-transform:uppercase;opacity:0.4;position:relative;z-index:10;line-height:2;}
+.chain-deco{display:flex;align-items:center;justify-content:center;gap:0;opacity:0.12;margin:32px 0;pointer-events:none;}
+.chain-link{width:24px;height:14px;border:2px solid var(--gold);border-radius:7px;margin:-2px;}
+.chain-link:nth-child(even){transform:rotate(90deg);}
+@media(max-width:700px){nav{padding:12px 16px;}.nav-links{display:none;}.nft-grid{grid-template-columns:1fr;}.loop-flow{flex-direction:column;align-items:center;}.loop-arr{transform:rotate(90deg);margin-bottom:0;margin-top:0;}}
+</style>
+</head>
+<body>
+<div class="bgw" style="top:5%;left:-2%;transform:rotate(-12deg)">PIRATE</div>
+<div class="bgw" style="top:38%;right:-5%;transform:rotate(9deg)">TEMPO</div>
+<div class="bgw" style="top:68%;left:-3%;transform:rotate(-7deg)">TPirate</div>
+<canvas id="c"></canvas>
+
+<nav>
+  <div class="nav-logo">☠ Tempo Pirate</div>
+  <div class="nav-links">
+    <a href="#loop">The Loop</a>
+    <a href="#map">Treasure Map</a>
+    <a href="#nft">NFT</a>
+    <a href="#buy">How to Buy</a>
+  </div>
+  <a href="https://app.uniswap.org/swap?chain=tempo&outputCurrency=0x8753bB308BCb6972D298c03f997d10CcE781D65D" target="_blank" class="nav-cta">Buy TPirate</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-glow"></div>
+  <span class="scatter" style="top:14%;left:5%;transform:rotate(-14deg)">Chain ID · 4217</span>
+  <span class="scatter" style="top:22%;right:7%;transform:rotate(9deg)">Tempo Mainnet</span>
+  <span class="scatter" style="bottom:22%;left:4%;transform:rotate(-6deg)">Buy TPirate → Mint Pirates</span>
+  <span class="scatter" style="bottom:18%;right:5%;transform:rotate(11deg)">1000 Pirates · 1 Crew</span>
+  <span class="scatter" style="top:42%;left:2%;transform:rotate(-22deg)">NGMI Anon</span>
+  <span class="scatter" style="top:30%;left:12%;transform:rotate(7deg)">Mint with TPirate</span>
+  <div class="fskulls" style="top:12%;left:9%;--fs:36px;--fo:0.06;--fd:7s;--fda:-2s">☠</div>
+  <div class="fskulls" style="top:25%;right:11%;--fs:20px;--fo:0.05;--fd:5s;--fda:-4s">☠</div>
+  <div class="fskulls" style="bottom:28%;left:7%;--fs:44px;--fo:0.04;--fd:8s;--fda:-1s">☠</div>
+  <div class="hero-pill"><div class="live-dot"></div>Live on Tempo Mainnet · Chain ID 4217</div>
+  <div class="hero-eyebrow">☠ &nbsp;&nbsp; Buy TPirate. Mint A Pirate. &nbsp;&nbsp; ☠</div>
+  <div style="position:relative">
+    <h1 class="hero-title">TEMPO<br>PIRATE</h1>
+    <div class="hero-title-ghost">TEMPO<br>PIRATE</div>
+  </div>
+  <p class="hero-symbol">TPirate · The Key To The Crew</p>
+  <div class="hero-nft-badge">
+    <span>Buy TPirate</span>
+    <span class="badge-arrow">→</span>
+    <span style="color:var(--gold)">Mint Tempo Pirates NFT</span>
+    <span class="badge-arrow">→</span>
+    <span>Join The Crew ☠</span>
+  </div>
+  <div class="logo-area" id="logoArea">
+    <svg viewBox="0 0 340 128" width="340" height="128" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff" stop-opacity="0.25"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></linearGradient>
+        <linearGradient id="hg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2a1f10"/><stop offset="100%" stop-color="#0d0906"/></linearGradient>
+        <filter id="hf"><feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter>
+      </defs>
+      <g transform="translate(12,36)">
+        <circle cx="70" cy="68" r="14" fill="#2a1810" stroke="#c49a10" stroke-width="2"/><circle cx="70" cy="68" r="8" fill="#1a0f08" stroke="#c49a10" stroke-width="1.5"/>
+        <line x1="70" y1="54" x2="70" y2="82" stroke="#c49a10" stroke-width="1.5" opacity="0.6"/><line x1="56" y1="68" x2="84" y2="68" stroke="#c49a10" stroke-width="1.5" opacity="0.6"/>
+        <circle cx="52" cy="68" r="10" fill="#2a1810" stroke="#c49a10" stroke-width="2"/><circle cx="52" cy="68" r="5" fill="#1a0f08" stroke="#c49a10" stroke-width="1.5"/>
+        <path d="M46 52 L82 52 L82 66 L46 66 Z" fill="#3a2010" stroke="#c49a10" stroke-width="1.5"/>
+        <rect x="2" y="28" width="84" height="24" rx="12" fill="#c49a10" stroke="#7a5f08" stroke-width="2"/>
+        <rect x="2" y="28" width="84" height="24" rx="12" fill="url(#cg)" opacity="0.5"/>
+        <rect x="0" y="24" width="20" height="32" rx="10" fill="#b8890e" stroke="#7a5f08" stroke-width="2"/>
+        <rect x="3" y="28" width="14" height="24" rx="7" fill="#d4a820"/>
+        <rect x="50" y="28" width="9" height="24" rx="3" fill="#7a5f08" opacity="0.6"/>
+        <circle cx="90" cy="60" r="7" fill="#444" stroke="#333" stroke-width="1.5"/>
+      </g>
+      <g transform="translate(328,36) scale(-1,1)">
+        <circle cx="70" cy="68" r="14" fill="#2a1810" stroke="#c49a10" stroke-width="2"/><circle cx="70" cy="68" r="8" fill="#1a0f08" stroke="#c49a10" stroke-width="1.5"/>
+        <line x1="70" y1="54" x2="70" y2="82" stroke="#c49a10" stroke-width="1.5" opacity="0.6"/><line x1="56" y1="68" x2="84" y2="68" stroke="#c49a10" stroke-width="1.5" opacity="0.6"/>
+        <circle cx="52" cy="68" r="10" fill="#2a1810" stroke="#c49a10" stroke-width="2"/><circle cx="52" cy="68" r="5" fill="#1a0f08" stroke="#c49a10" stroke-width="1.5"/>
+        <path d="M46 52 L82 52 L82 66 L46 66 Z" fill="#3a2010" stroke="#c49a10" stroke-width="1.5"/>
+        <rect x="2" y="28" width="84" height="24" rx="12" fill="#c49a10" stroke="#7a5f08" stroke-width="2"/>
+        <rect x="2" y="28" width="84" height="24" rx="12" fill="url(#cg)" opacity="0.5"/>
+        <rect x="0" y="24" width="20" height="32" rx="10" fill="#b8890e" stroke="#7a5f08" stroke-width="2"/>
+        <rect x="3" y="28" width="14" height="24" rx="7" fill="#d4a820"/>
+        <rect x="50" y="28" width="9" height="24" rx="3" fill="#7a5f08" opacity="0.6"/>
+        <circle cx="90" cy="60" r="7" fill="#444" stroke="#333" stroke-width="1.5"/>
+      </g>
+      <g transform="translate(170, 4)" filter="url(#hf)">
+        <ellipse cx="0" cy="96" rx="64" ry="16" fill="#000" opacity="0.4"/>
+        <ellipse cx="0" cy="92" rx="60" ry="14" fill="url(#hg)" stroke="#f5c518" stroke-width="2.5"/>
+        <path d="M-52 92 Q-58 62 -40 34 Q-18 2 0 0 Q18 2 40 34 Q58 62 52 92 Z" fill="url(#hg)" stroke="#f5c518" stroke-width="2.5"/>
+        <path d="M-50 80 Q-54 64 -38 50 Q-18 32 0 30 Q18 32 38 50 Q54 64 50 80" fill="none" stroke="#f5c518" stroke-width="4.5" stroke-linecap="round"/>
+        <rect x="-12" y="56" width="24" height="16" rx="3" fill="#f5c518" stroke="#7a5f08" stroke-width="2"/>
+        <rect x="-6" y="60" width="12" height="8" rx="1.5" fill="none" stroke="#7a5f08" stroke-width="2"/>
+        <circle cx="0" cy="38" r="14" fill="#f5c518" stroke="#7a5f08" stroke-width="1.5"/>
+        <ellipse cx="0" cy="35" rx="7" ry="7.5" fill="#1a0f08"/>
+        <rect x="-5" y="40" width="10" height="5" rx="1" fill="#1a0f08"/>
+        <circle cx="-2.8" cy="33.5" r="2.2" fill="#f5c518"/><circle cx="2.8" cy="33.5" r="2.2" fill="#f5c518"/>
+        <circle cx="-2.8" cy="33.5" r="1" fill="#0a0a0f"/><circle cx="2.8" cy="33.5" r="1" fill="#0a0a0f"/>
+        <line x1="-16" y1="28" x2="16" y2="48" stroke="#f5c518" stroke-width="3" stroke-linecap="round"/>
+        <line x1="16" y1="28" x2="-16" y2="48" stroke="#f5c518" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="-16" cy="28" r="4" fill="#f5c518"/><circle cx="16" cy="28" r="4" fill="#f5c518"/>
+        <circle cx="-16" cy="48" r="4" fill="#f5c518"/><circle cx="16" cy="48" r="4" fill="#f5c518"/>
+        <path d="M 42 36 Q 60 18 56 0 Q 50 -14 44 -2 Q 50 -8 42 8 Q 46 -2 38 14 Q 42 5 34 22 Q 38 13 30 28 Q 34 20 26 34 Q 30 26 22 40" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-linecap="round"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-btns">
+    <a href="https://app.uniswap.org/swap?chain=tempo&outputCurrency=0x8753bB308BCb6972D298c03f997d10CcE781D65D" target="_blank" class="btn-gold">☠ Buy TPirate</a>
+    <a href="#nft" class="btn-red">Mint The Pirates →</a>
+  </div>
+  <p class="hero-disclaimer">Not financial advice. Pirates sail at their own risk. Tempo Chain.</p>
+</section>
+
+<div class="stripe"></div>
+<div class="ticker-wrap"><div class="ticker-inner">
+  <span class="ticker-item">☠ TPirate</span><span class="ticker-item">· Buy TPirate · Mint Tempo Pirates NFT ·</span>
+  <span class="ticker-item">☠ 1,000 Pirates · 1,000,000,000 TPirate</span><span class="ticker-item">· Tempo Chain · Chain ID 4217 ·</span>
+  <span class="ticker-item">☠ TPirate = Your Mint Pass</span><span class="ticker-item">· NGMI if you miss this ·</span>
+  <span class="ticker-item">☠ TPirate</span><span class="ticker-item">· Buy TPirate · Mint Tempo Pirates NFT ·</span>
+  <span class="ticker-item">☠ 1,000 Pirates · 1,000,000,000 TPirate</span><span class="ticker-item">· Tempo Chain · Chain ID 4217 ·</span>
+  <span class="ticker-item">☠ TPirate = Your Mint Pass</span><span class="ticker-item">· NGMI if you miss this ·</span>
+</div></div>
+<div class="stripe"></div>
+
+<!-- THE LOOP -->
+<section id="loop" class="loop-section">
+  <h2 class="sec-title">The Loop</h2>
+  <p class="sec-sub">☠ why tpirate pumps ☠</p>
+  <div class="loop-inner">
+    <div class="loop-flow">
+      <div class="loop-node">
+        <div class="loop-icon">💰</div>
+        <div class="loop-lbl">Get USDC</div>
+        <div class="loop-desc">Bridge to Tempo Chain</div>
+      </div>
+      <div class="loop-arr">→</div>
+      <div class="loop-node">
+        <div class="loop-icon">🪙</div>
+        <div class="loop-lbl">Buy TPirate</div>
+        <div class="loop-desc">Swap on Uniswap/Tempo</div>
+      </div>
+      <div class="loop-arr">→</div>
+      <div class="loop-node hl">
+        <div class="loop-icon" style="font-size:30px">☠</div>
+        <div class="loop-lbl">Mint A Pirate</div>
+        <div class="loop-desc">Spend TPirate to mint NFT</div>
+      </div>
+      <div class="loop-arr">→</div>
+      <div class="loop-node">
+        <div class="loop-icon">🏴‍☠️</div>
+        <div class="loop-lbl">Join The Crew</div>
+        <div class="loop-desc">1,000 Pirates. Ever.</div>
+      </div>
+      <div class="loop-arr">→</div>
+      <div class="loop-node">
+        <div class="loop-icon">📈</div>
+        <div class="loop-lbl">Price Pumps</div>
+        <div class="loop-desc">Supply gone. FOMO grows.</div>
+      </div>
+    </div>
+    <div class="loop-callout">
+      <h3>Why does TPirate pump?</h3>
+      <p>Every Tempo Pirates NFT minted costs <strong>TPirate</strong>. Only <strong>1,000 Pirates</strong> will ever exist. As the crew fills up, demand for TPirate grows — every new pirate who wants in has to <strong>buy TPirate first</strong>. Limited NFTs. Spending pressure on the coin. You've seen this movie before, ser. <strong>WAGMI.</strong></p>
+    </div>
+  </div>
+</section>
+
+<div class="red-ticker-wrap"><div class="red-ticker-inner">
+  <span class="red-ticker-item">BUY TPIRATE TO MINT</span><span class="red-ticker-item">· 1000 PIRATES TOTAL ·</span>
+  <span class="red-ticker-item">NGMI IF YOU MISS THIS</span><span class="red-ticker-item">· TEMPO CHAIN IS NEW ·</span>
+  <span class="red-ticker-item">FIRST MOVER ENERGY</span><span class="red-ticker-item">· TPIRATE = MINT PASS ·</span>
+  <span class="red-ticker-item">BUY TPIRATE TO MINT</span><span class="red-ticker-item">· 1000 PIRATES TOTAL ·</span>
+  <span class="red-ticker-item">NGMI IF YOU MISS THIS</span><span class="red-ticker-item">· TEMPO CHAIN IS NEW ·</span>
+  <span class="red-ticker-item">FIRST MOVER ENERGY</span><span class="red-ticker-item">· TPIRATE = MINT PASS ·</span>
+</div></div>
+
+<!-- TREASURE MAP -->
+<section id="map" class="map-section">
+  <h2 class="sec-title">Treasure Map</h2>
+  <p class="sec-sub">☠ follow the route ser ☠</p>
+  <div class="map-outer">
+    <div class="map-frame">
+      <div class="map-svg-wrap">
+        <svg id="mapSvg" viewBox="0 0 900 500" width="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="pg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#c8a05a"/><stop offset="35%" stop-color="#d4b070"/>
+              <stop offset="65%" stop-color="#be9040"/><stop offset="100%" stop-color="#a87830"/>
+            </linearGradient>
+            <radialGradient id="vg" cx="50%" cy="50%">
+              <stop offset="55%" stop-color="transparent"/><stop offset="100%" stop-color="#4a2800" stop-opacity="0.7"/>
+            </radialGradient>
+            <pattern id="wv" x="0" y="0" width="40" height="18" patternUnits="userSpaceOnUse">
+              <path d="M0 9 Q10 4 20 9 Q30 14 40 9" fill="none" stroke="#8a6030" stroke-width="0.6" opacity="0.35"/>
+            </pattern>
+            <pattern id="grd" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+              <path d="M60 0 L0 0 0 60" fill="none" stroke="#7a5020" stroke-width="0.3" opacity="0.3"/>
+            </pattern>
+          </defs>
+
+          <!-- PARCHMENT -->
+          <rect width="900" height="500" fill="url(#pg)"/>
+          <rect width="900" height="500" fill="url(#vg)"/>
+          <rect width="900" height="500" fill="url(#grd)"/>
+          <rect width="900" height="500" fill="url(#wv)"/>
+
+          <!-- STAINS -->
+          <ellipse cx="80" cy="80" rx="60" ry="45" fill="#6a3010" opacity="0.1"/>
+          <ellipse cx="820" cy="420" rx="70" ry="50" fill="#6a3010" opacity="0.09"/>
+          <ellipse cx="450" cy="250" rx="220" ry="130" fill="#d4a040" opacity="0.07"/>
+          <ellipse cx="120" cy="420" rx="45" ry="32" fill="#5a2800" opacity="0.08"/>
+          <ellipse cx="780" cy="90" rx="40" ry="30" fill="#5a2800" opacity="0.07"/>
+
+          <!-- TORN EDGES -->
+          <path d="M0 0 Q18 10 0 22 Q10 38 0 56 Q14 72 0 500 L0 0Z" fill="#8a5020" opacity="0.18"/>
+          <path d="M900 0 Q882 14 900 28 Q886 44 900 64 Q884 82 900 500 L900 0Z" fill="#8a5020" opacity="0.18"/>
+
+          <!-- WATERMARK -->
+          <text x="450" y="270" text-anchor="middle" font-family="Georgia,serif" font-size="52" fill="#7a5020" opacity="0.06" transform="rotate(-14 450 270)" font-style="italic" font-weight="900">HERE BE PIRATES</text>
+
+          <!-- MAP TITLE -->
+          <rect x="270" y="18" width="360" height="38" rx="4" fill="#3d1f00" opacity="0.75"/>
+          <rect x="275" y="23" width="350" height="28" rx="2" fill="none" stroke="#f5c518" stroke-width="1" opacity="0.4"/>
+          <text x="450" y="43" text-anchor="middle" font-family="Georgia,serif" font-size="18" fill="#f5c518" letter-spacing="2" font-style="italic">TEMPO PIRATES TREASURE MAP</text>
+
+          <!-- TREASURE TRAIL -->
+          <path id="trailPath" d="M 100 360 C 145 290 200 250 270 230 C 330 215 370 255 450 270 C 520 283 565 225 645 205 C 700 190 735 205 790 178" fill="none" stroke="#7a4010" stroke-width="3" stroke-dasharray="9 7" opacity="0.75"/>
+          <!-- Arrow at end -->
+          <polygon points="786,170 802,180 786,190" fill="#7a4010" opacity="0.75"/>
+
+          <!-- ISLAND 1: USDC SHORES -->
+          <g id="isl1" transform="translate(100,360)">
+            <ellipse cx="0" cy="10" rx="54" ry="20" fill="#4a6830" opacity="0.75"/>
+            <ellipse cx="0" cy="0" rx="46" ry="30" fill="#5a8038"/>
+            <ellipse cx="-8" cy="-5" rx="30" ry="20" fill="#6a9848"/>
+            <ellipse cx="0" cy="20" rx="42" ry="12" fill="#c8a040" opacity="0.55"/>
+            <line x1="-12" y1="2" x2="-12" y2="-22" stroke="#3a2010" stroke-width="1.5"/>
+            <ellipse cx="-12" cy="-26" rx="8" ry="11" fill="#3a6828"/>
+            <line x1="10" y1="3" x2="10" y2="-18" stroke="#3a2010" stroke-width="1.5"/>
+            <ellipse cx="10" cy="-22" rx="7" ry="9" fill="#3a6828"/>
+            <circle cx="0" cy="-2" r="11" fill="#f5c518" opacity="0.92" stroke="#c49a10" stroke-width="1"/>
+            <text x="0" y="3" text-anchor="middle" font-family="Georgia,serif" font-size="13" font-weight="900" fill="#3d1f00">$</text>
+            <rect x="-48" y="30" width="96" height="30" rx="3" fill="#3d1f00" opacity="0.78"/>
+            <text x="0" y="43" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#f5c518" font-weight="700" letter-spacing="1">USDC SHORES</text>
+            <text x="0" y="55" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#c8a05a" font-style="italic">Get your USDC</text>
+            <circle cx="-44" cy="-34" r="11" fill="#c0392b" stroke="#f5c518" stroke-width="1.5"/>
+            <text x="-44" y="-30" text-anchor="middle" font-family="Georgia,serif" font-size="11" font-weight="900" fill="#fff">1</text>
+          </g>
+
+          <!-- ISLAND 2: TEMPO BAY -->
+          <g id="isl2" transform="translate(270,230)">
+            <ellipse cx="0" cy="10" rx="50" ry="18" fill="#4a6830" opacity="0.75"/>
+            <ellipse cx="0" cy="0" rx="44" ry="28" fill="#5a8038"/>
+            <ellipse cx="6" cy="-6" rx="28" ry="18" fill="#6a9848"/>
+            <ellipse cx="0" cy="20" rx="38" ry="10" fill="#c8a040" opacity="0.55"/>
+            <rect x="-4" y="14" width="8" height="20" fill="#6a4020" opacity="0.8"/>
+            <rect x="-14" y="30" width="28" height="4" rx="1" fill="#6a4020" opacity="0.7"/>
+            <circle cx="0" cy="-2" r="11" fill="#f5c518" opacity="0.92" stroke="#c49a10" stroke-width="1"/>
+            <text x="0" y="3" text-anchor="middle" font-family="Georgia,serif" font-size="13" font-weight="900" fill="#3d1f00">T</text>
+            <rect x="-44" y="28" width="88" height="30" rx="3" fill="#3d1f00" opacity="0.78"/>
+            <text x="0" y="41" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#f5c518" font-weight="700" letter-spacing="1">TEMPO BAY</text>
+            <text x="0" y="52" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#c8a05a" font-style="italic">Bridge to Tempo Chain</text>
+            <circle cx="-40" cy="-30" r="11" fill="#c0392b" stroke="#f5c518" stroke-width="1.5"/>
+            <text x="-40" y="-26" text-anchor="middle" font-family="Georgia,serif" font-size="11" font-weight="900" fill="#fff">2</text>
+          </g>
+
+          <!-- ISLAND 3: TPIRATE COVE (KEY ISLAND) -->
+          <g id="isl3" transform="translate(450,270)">
+            <ellipse cx="0" cy="14" rx="66" ry="22" fill="#4a6830" opacity="0.75"/>
+            <ellipse cx="0" cy="0" rx="58" ry="38" fill="#5a8038"/>
+            <ellipse cx="-6" cy="-8" rx="40" ry="26" fill="#6a9848"/>
+            <ellipse cx="0" cy="22" rx="54" ry="15" fill="#c8a040" opacity="0.55"/>
+            <!-- Gold coin stack -->
+            <ellipse cx="0" cy="8" rx="16" ry="6" fill="#c49a10"/>
+            <ellipse cx="0" cy="3" rx="16" ry="6" fill="#f5c518"/>
+            <ellipse cx="0" cy="-2" rx="16" ry="6" fill="#c49a10"/>
+            <ellipse cx="0" cy="-7" rx="16" ry="6" fill="#f5c518"/>
+            <rect x="-16" y="-7" width="32" height="15" fill="#c49a10"/>
+            <ellipse cx="0" cy="-7" rx="16" ry="6" fill="#f5c518"/>
+            <text x="0" y="-3" text-anchor="middle" font-family="Georgia,serif" font-size="9" font-weight="900" fill="#3d1f00">TP</text>
+            <!-- Glow ring - this is THE island -->
+            <ellipse cx="0" cy="0" rx="64" ry="42" fill="none" stroke="#f5c518" stroke-width="2" stroke-dasharray="5 4" opacity="0.5"/>
+            <rect x="-56" y="33" width="112" height="32" rx="3" fill="#c0392b" opacity="0.92"/>
+            <text x="0" y="47" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#f5c518" font-weight="700" letter-spacing="1">TPirate COVE</text>
+            <text x="0" y="59" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#fff" font-style="italic">BUY TPirate HERE</text>
+            <circle cx="-54" cy="-34" r="11" fill="#c0392b" stroke="#f5c518" stroke-width="1.5"/>
+            <text x="-54" y="-30" text-anchor="middle" font-family="Georgia,serif" font-size="11" font-weight="900" fill="#fff">3</text>
+          </g>
+
+          <!-- ISLAND 4: PIRATES ISLAND (NFT TREASURE) -->
+          <g id="isl4" transform="translate(790,178)">
+            <ellipse cx="0" cy="16" rx="76" ry="26" fill="#4a6830" opacity="0.75"/>
+            <ellipse cx="0" cy="0" rx="68" ry="46" fill="#5a8038"/>
+            <ellipse cx="-8" cy="-12" rx="48" ry="32" fill="#6a9848"/>
+            <ellipse cx="0" cy="26" rx="62" ry="18" fill="#c8a040" opacity="0.55"/>
+            <line x1="-24" y1="12" x2="-24" y2="-28" stroke="#3a2010" stroke-width="2.5"/>
+            <ellipse cx="-24" cy="-34" rx="12" ry="16" fill="#3a6828"/>
+            <line x1="22" y1="10" x2="22" y2="-24" stroke="#3a2010" stroke-width="2"/>
+            <ellipse cx="22" cy="-29" rx="10" ry="14" fill="#3a6828"/>
+            <!-- Treasure chest -->
+            <rect x="-12" y="-10" width="24" height="17" rx="2" fill="#6a3810" stroke="#c49a10" stroke-width="2"/>
+            <rect x="-12" y="-10" width="24" height="8" rx="2" fill="#7a4820" stroke="#c49a10" stroke-width="2"/>
+            <rect x="-5" y="-7" width="10" height="6" rx="1" fill="#f5c518"/>
+            <text x="0" y="-12" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#f5c518">☠</text>
+            <!-- Coins spilling -->
+            <circle cx="16" cy="5" r="5" fill="#f5c518" opacity="0.9"/>
+            <circle cx="-18" cy="6" r="4" fill="#f5c518" opacity="0.85"/>
+            <circle cx="20" cy="-3" r="3.5" fill="#c49a10" opacity="0.9"/>
+
+            <!-- BIG X MARKS THE SPOT -->
+            <g id="xMark">
+              <line x1="-22" y1="-44" x2="22" y2="-8" stroke="#c0392b" stroke-width="5" stroke-linecap="round"/>
+              <line x1="22" y1="-44" x2="-22" y2="-8" stroke="#c0392b" stroke-width="5" stroke-linecap="round"/>
+              <!-- X outline for visibility -->
+              <line x1="-22" y1="-44" x2="22" y2="-8" stroke="#000" stroke-width="7" stroke-linecap="round" opacity="0.3"/>
+              <line x1="22" y1="-44" x2="-22" y2="-8" stroke="#000" stroke-width="7" stroke-linecap="round" opacity="0.3"/>
+              <line x1="-22" y1="-44" x2="22" y2="-8" stroke="#c0392b" stroke-width="5" stroke-linecap="round"/>
+              <line x1="22" y1="-44" x2="-22" y2="-8" stroke="#c0392b" stroke-width="5" stroke-linecap="round"/>
+            </g>
+
+            <rect x="-64" y="40" width="128" height="38" rx="3" fill="#3d1f00" opacity="0.9"/>
+            <text x="0" y="54" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="#f5c518" font-weight="700" letter-spacing="2">PIRATES ISLAND</text>
+            <text x="0" y="70" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#c8a05a" font-style="italic">Mint Tempo Pirates NFT ☠</text>
+            <circle cx="-62" cy="-46" r="13" fill="#f5c518" stroke="#c0392b" stroke-width="2.5"/>
+            <text x="-62" y="-42" text-anchor="middle" font-family="Georgia,serif" font-size="13" font-weight="900" fill="#3d1f00">4</text>
+          </g>
+
+          <!-- SEA MONSTERS -->
+          <g transform="translate(175,420)" opacity="0.3">
+            <path d="M0 0 Q12 -18 24 -6 Q36 -20 48 -4 Q60 -18 72 0" fill="none" stroke="#3d2010" stroke-width="2.5"/>
+            <circle cx="12" cy="-10" r="4" fill="#3d2010"/><circle cx="60" cy="-8" r="4" fill="#3d2010"/>
+          </g>
+          <g transform="translate(600,410)" opacity="0.28">
+            <path d="M0 0 Q16 -22 32 -8 Q48 -24 64 0" fill="none" stroke="#3d2010" stroke-width="2"/>
+            <ellipse cx="9" cy="-12" rx="5" ry="3.5" fill="#3d2010"/><ellipse cx="55" cy="-10" rx="5" ry="3.5" fill="#3d2010"/>
+          </g>
+
+          <!-- ANIMATED SHIP -->
+          <g id="ship">
+            <path d="M-18 8 Q0 16 18 8 L14 0 L-14 0 Z" fill="#3d1f00" stroke="#c49a10" stroke-width="1.2"/>
+            <line x1="0" y1="0" x2="0" y2="-26" stroke="#3d1f00" stroke-width="2.5"/>
+            <path d="M0 -24 Q10 -15 2 -5 L0 -5 Z" fill="#c8a05a" stroke="#8a6030" stroke-width="1" opacity="0.95"/>
+            <path d="M0 -26 L9 -21 L0 -16 Z" fill="#c0392b"/>
+            <text x="3" y="-13" font-size="6" fill="#3d1f00" opacity="0.8">☠</text>
+          </g>
+
+          <!-- COMPASS ROSE -->
+          <g transform="translate(830,415)">
+            <circle cx="0" cy="0" r="38" fill="#c8a05a" opacity="0.45" stroke="#8a5030" stroke-width="1.5"/>
+            <circle cx="0" cy="0" r="30" fill="none" stroke="#8a5030" stroke-width="0.8" opacity="0.5"/>
+            <circle cx="0" cy="0" r="7" fill="#8a5030" opacity="0.7"/>
+            <polygon points="0,-38 7,-13 -7,-13" fill="#3d1f00" opacity="0.85"/>
+            <polygon points="0,38 7,13 -7,13" fill="#8a5030" opacity="0.6"/>
+            <polygon points="38,0 13,7 13,-7" fill="#8a5030" opacity="0.6"/>
+            <polygon points="-38,0 -13,7 -13,-7" fill="#8a5030" opacity="0.6"/>
+            <text x="0" y="-43" text-anchor="middle" font-family="Georgia,serif" font-size="12" font-weight="900" fill="#3d1f00" opacity="0.85">N</text>
+          </g>
+
+          <!-- SCALE -->
+          <g transform="translate(50,460)" opacity="0.45">
+            <line x1="0" y1="0" x2="80" y2="0" stroke="#3d1f00" stroke-width="1.5"/>
+            <line x1="0" y1="-4" x2="0" y2="4" stroke="#3d1f00" stroke-width="1.5"/>
+            <line x1="80" y1="-4" x2="80" y2="4" stroke="#3d1f00" stroke-width="1.5"/>
+            <text x="40" y="-8" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#3d1f00" font-style="italic">One Blockchain</text>
+          </g>
+
+          <!-- CORNER FLOURISHES -->
+          <text x="22" y="18" font-family="Georgia,serif" font-size="22" fill="#7a5020" opacity="0.35">✦</text>
+          <text x="868" y="18" font-family="Georgia,serif" font-size="22" fill="#7a5020" opacity="0.35" text-anchor="end">✦</text>
+          <text x="22" y="490" font-family="Georgia,serif" font-size="22" fill="#7a5020" opacity="0.35">✦</text>
+          <text x="868" y="490" font-family="Georgia,serif" font-size="22" fill="#7a5020" opacity="0.35" text-anchor="end">✦</text>
+        </svg>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:20px;font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:0.35em;color:var(--gold);opacity:0.4;text-transform:uppercase;">Follow the trail · TPirate is the key · X marks the NFT</p>
+  </div>
+</section>
+
+<!-- NFT SECTION -->
+<section id="nft" class="nft-section">
+  <div class="nft-inner">
+    <div class="nft-grid">
+      <div class="nft-left">
+        <div class="soon-badge">☠ &nbsp; Coming Soon</div>
+        <h2>Tempo<br>Pirates<br>NFT</h2>
+        <p><strong style="color:var(--gold)">1,000 unique pirates.</strong> That's it. That's all. Each one minted with TPirate coin — no exceptions. No USDC. No ETH. TPirate only.</p>
+        <p>Every mint spends TPirate. Fewer coins available, same demand. Limited NFTs. Spending pressure. You've seen this movie, ser. <strong style="color:var(--gold)">WAGMI.</strong></p>
+        <div class="nft-stats">
+          <div><div class="nft-stat-n">1,000</div><div class="nft-stat-l">Total Pirates</div></div>
+          <div><div class="nft-stat-n">TPirate</div><div class="nft-stat-l">Only Mint Currency</div></div>
+          <div><div class="nft-stat-n">0</div><div class="nft-stat-l">Other Ways In</div></div>
+        </div>
+        <a href="https://app.uniswap.org/swap?chain=tempo&outputCurrency=0x8753bB308BCb6972D298c03f997d10CcE781D65D" target="_blank" class="btn-gold" style="font-size:16px;padding:14px 32px">☠ Buy TPirate First</a>
+      </div>
+      <div class="nft-right">
+        <div class="nft-card">
+          <div class="nft-card-top">
+            <div class="nft-card-art">
+              <svg viewBox="0 0 200 200" width="160" height="160" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="100" cy="55" r="30" fill="#f5c518" opacity="0.12" stroke="#f5c518" stroke-width="1"/>
+                <path d="M70 48 Q75 20 100 18 Q125 20 130 48 Z" fill="#f5c518" opacity="0.55"/>
+                <ellipse cx="100" cy="50" rx="34" ry="8" fill="#f5c518" opacity="0.45"/>
+                <circle cx="90" cy="52" r="4" fill="#f5c518" opacity="0.75"/>
+                <circle cx="110" cy="52" r="4" fill="#f5c518" opacity="0.75"/>
+                <circle cx="90" cy="52" r="2" fill="#0a0a0f"/><circle cx="110" cy="52" r="2" fill="#0a0a0f"/>
+                <ellipse cx="110" cy="52" rx="8" ry="6" fill="none" stroke="#f5c518" stroke-width="1.5" opacity="0.6"/>
+                <path d="M72 85 Q100 80 128 85 L132 160 Q100 168 68 160 Z" fill="#c0392b" opacity="0.35"/>
+                <circle cx="100" cy="95" r="3" fill="#f5c518" opacity="0.65"/>
+                <circle cx="100" cy="110" r="3" fill="#f5c518" opacity="0.65"/>
+                <circle cx="100" cy="125" r="3" fill="#f5c518" opacity="0.65"/>
+                <line x1="128" y1="90" x2="155" y2="158" stroke="#f5c518" stroke-width="2" opacity="0.55"/>
+                <line x1="121" y1="97" x2="135" y2="97" stroke="#f5c518" stroke-width="2" opacity="0.45"/>
+                <text x="100" y="188" text-anchor="middle" font-family="Georgia,serif" font-size="24" fill="#f5c518" opacity="0.25" font-style="italic">?</text>
+              </svg>
+            </div>
+            <div class="nft-card-label">TEMPO PIRATES</div>
+          </div>
+          <div class="nft-card-bottom">
+            <div class="nft-name">Pirate #???</div>
+            <div class="nft-price">Mint w/ TPirate</div>
+          </div>
+        </div>
+        <div class="nft-qs">
+          <div class="nft-q"><div class="nft-q-n">?</div><div class="nft-q-l">Art Reveal TBA</div></div>
+          <div class="nft-q"><div class="nft-q-n">?</div><div class="nft-q-l">Mint Price TBA</div></div>
+        </div>
+        <p style="font-size:10px;opacity:0.3;letter-spacing:0.2em;text-transform:uppercase;font-family:'Bebas Neue',sans-serif;text-align:center;">Details drop when the time comes · follow for updates</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stripe stripe-sm"></div>
+
+<!-- TOKENOMICS -->
+<section id="tokenomics" class="toko-section">
+  <h2 class="sec-title">Tokenomics</h2>
+  <p class="sec-sub">☠ the numbers, ser ☠</p>
+  <div class="toko-grid">
+    <div class="toko-card" style="transform:rotate(-1.2deg)"><div class="toko-lbl">Total Supply</div><div class="toko-val">1,000,000,000</div><div class="toko-unit">TPirate</div></div>
+    <div class="toko-card" style="transform:rotate(0.9deg)"><div class="toko-lbl">NFT Collection</div><div class="toko-val">1,000</div><div class="toko-unit">Tempo Pirates · Ever</div></div>
+    <div class="toko-card" style="transform:rotate(-0.6deg)"><div class="toko-lbl">Mint Currency</div><div class="toko-val">TPirate</div><div class="toko-unit">Only Way To Mint</div></div>
+    <div class="toko-card" style="transform:rotate(1.4deg)"><div class="toko-lbl">Public Faucet</div><div class="toko-val">1,000</div><div class="toko-unit">Free · Per 24hrs</div></div>
+    <div class="toko-card" style="transform:rotate(-0.8deg)"><div class="toko-lbl">Gas Cost</div><div class="toko-val">&lt; $0.001</div><div class="toko-unit">Paid in USDC</div></div>
+    <div class="toko-card" style="transform:rotate(0.5deg)"><div class="toko-lbl">Network</div><div class="toko-val">Tempo</div><div class="toko-unit">Chain ID 4217 · 0.5s</div></div>
+  </div>
+  <div class="chain-deco" style="margin-top:48px">
+    <div class="chain-link"></div><div class="chain-link"></div><div class="chain-link"></div><div class="chain-link"></div>
+    <div class="chain-link"></div><div class="chain-link"></div><div class="chain-link"></div><div class="chain-link"></div>
+    <div class="chain-link"></div><div class="chain-link"></div><div class="chain-link"></div><div class="chain-link"></div>
+    <div class="chain-link"></div><div class="chain-link"></div><div class="chain-link"></div><div class="chain-link"></div>
+    <div class="chain-link"></div>
+  </div>
+</section>
+
+<!-- HOW TO BUY -->
+<section id="buy" class="buy-section">
+  <h2 class="sec-title">How to Buy</h2>
+  <p class="sec-sub">follow the treasure map, ser</p>
+  <div class="steps">
+    <div class="step"><div class="step-n">01</div><div class="step-body"><h3>Add Tempo to MetaMask</h3><p>RPC <code>https://tempo.drpc.org</code> · Chain ID <code>4217</code> · Symbol <code>USDC</code> · Explorer <code>https://explore.tempo.xyz</code></p></div></div>
+    <div class="step"><div class="step-n">02</div><div class="step-body"><h3>Bridge USDC to Tempo</h3><p>Bridge USDC from Ethereum or Base via <code>docs.tempo.xyz</code>. USDC pays your gas AND buys the coin. One token, ser.</p></div></div>
+    <div class="step"><div class="step-n">03</div><div class="step-body"><h3>Swap USDC → TPirate on Uniswap</h3><p>Uniswap live on Tempo. <a href="https://app.uniswap.org/swap?chain=tempo&outputCurrency=0x8753bB308BCb6972D298c03f997d10CcE781D65D" target="_blank" style="color:var(--gold);text-decoration:underline">Click here to swap</a> or paste the contract: <code>0x8753bB308BCb6972D298c03f997d10CcE781D65D</code></p></div></div>
+    <div class="step"><div class="step-n">04</div><div class="step-body"><h3>Hold TPirate · Mint A Pirate NFT</h3><p>When the Tempo Pirates NFT mint opens, spend your TPirate to mint. 1,000 total. First come, first served. The crew is forever. ☠ WAGMI.</p></div></div>
+  </div>
+</section>
+
+<!-- BOTTOM CTA -->
+<div class="cta-section">
+  <h2>Sail or Stay Behind</h2>
+  <p>The only coin with a crew to mint</p>
+  <div class="cta-steps">
+    <div class="cta-step"><span>01</span>Buy TPirate</div>
+    <div class="cta-step"><span>→</span></div>
+    <div class="cta-step"><span>02</span>Mint A Pirate</div>
+    <div class="cta-step"><span>→</span></div>
+    <div class="cta-step"><span>03</span>Join The Crew</div>
+    <div class="cta-step"><span>→</span></div>
+    <div class="cta-step"><span>☠</span>WAGMI</div>
+  </div>
+  <a href="https://app.uniswap.org/swap?chain=tempo&outputCurrency=0x8753bB308BCb6972D298c03f997d10CcE781D65D" target="_blank" class="btn-dark">☠ &nbsp; Buy TPirate Now &nbsp; ☠</a>
+</div>
+
+<footer>
+  <p>Tempo Pirate (TPirate) · Deployed on Tempo Chain · Chain ID 4217</p>
+  <p><a href="https://explore.tempo.xyz/address/0x8753bB308BCb6972D298c03f997d10CcE781D65D" target="_blank" style="color:var(--gold);text-decoration:none;opacity:0.7">Contract: 0x8753bB...1D65D ↗</a></p>
+  <p>Not financial advice · Pirates sail at their own risk · ☠ · WAGMI</p>
+</footer>
+
+<script>
+const canvas=document.getElementById('c'),ctx=canvas.getContext('2d');
+function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+const particles=[];
+class P{
+  constructor(init){this.reset(init);}
+  reset(fromTop){
+    this.x=Math.random()*window.innerWidth;
+    this.y=fromTop?Math.random()*-window.innerHeight:-32;
+    this.size=7+Math.random()*11;this.speedY=0.7+Math.random()*1.8;
+    this.speedX=(Math.random()-0.5)*0.6;this.rot=Math.random()*Math.PI*2;
+    this.rotSpeed=(Math.random()-0.5)*0.09;this.alpha=0.12+Math.random()*0.28;
+    this.kind=Math.random()>0.45?'coin':'skull';this.wobble=Math.random()*Math.PI*2;
+    this.wobbleSpeed=0.02+Math.random()*0.03;
+  }
+  update(){
+    this.y+=this.speedY;this.wobble+=this.wobbleSpeed;
+    this.x+=this.speedX+Math.sin(this.wobble)*0.3;this.rot+=this.rotSpeed;
+    if(this.y>window.innerHeight+40)this.reset(false);
+  }
+  draw(){
+    ctx.save();ctx.globalAlpha=this.alpha;ctx.translate(this.x,this.y);ctx.rotate(this.rot);
+    const s=this.size;
+    if(this.kind==='coin'){
+      ctx.beginPath();ctx.ellipse(0,0,s,s*0.92,0,0,Math.PI*2);ctx.fillStyle='#f5c518';ctx.fill();
+      ctx.beginPath();ctx.ellipse(0,0,s*0.72,s*0.66,0,0,Math.PI*2);ctx.strokeStyle='#c49a10';ctx.lineWidth=1.2;ctx.stroke();
+      ctx.fillStyle='#c49a10';ctx.font=`bold ${s*0.85}px Georgia`;ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText(Math.random()>0.5?'$':'☠',0,1);
+    }else{
+      ctx.fillStyle='#f5c518';
+      ctx.beginPath();ctx.ellipse(0,-s*0.12,s*0.62,s*0.65,0,0,Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.arc(0,s*0.28,s*0.42,0,Math.PI);ctx.fill();
+      ctx.fillStyle='#060612';
+      ctx.beginPath();ctx.ellipse(-s*0.2,-s*0.15,s*0.17,s*0.18,0,0,Math.PI*2);ctx.ellipse(s*0.2,-s*0.15,s*0.17,s*0.18,0,0,Math.PI*2);ctx.fill();
+    }
+    ctx.restore();
+  }
+}
+for(let i=0;i<42;i++)particles.push(new P(true));
+function loop(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{p.update();p.draw();});requestAnimationFrame(loop);}
+loop();
+document.getElementById('logoArea').addEventListener('click',()=>{
+  const cx=window.innerWidth/2,cy=window.innerHeight*0.42;
+  for(let i=0;i<16;i++){const p=new P(false);p.x=cx+(Math.random()-0.5)*240;p.y=cy;p.speedY=2+Math.random()*5;p.speedX=(Math.random()-0.5)*4;p.alpha=0.7;p.size=12+Math.random()*8;particles.push(p);}
+});
+
+// ANIMATED SHIP on treasure map
+const trail=document.getElementById('trailPath');
+const ship=document.getElementById('ship');
+if(trail&&ship){
+  const L=trail.getTotalLength();
+  let t=0,dir=1;
+  function animShip(){
+    t+=0.0010*dir;
+    if(t>=1){t=1;dir=-1;}if(t<=0){t=0;dir=1;}
+    const p1=trail.getPointAtLength(t*L);
+    const p2=trail.getPointAtLength(Math.min((t+0.01)*L,L));
+    const angle=Math.atan2(p2.y-p1.y,p2.x-p1.x)*180/Math.PI;
+    const bob=Math.sin(Date.now()*0.003)*3;
+    ship.setAttribute('transform',`translate(${p1.x},${p1.y+bob}) rotate(${angle}) translate(-2,-14)`);
+    requestAnimationFrame(animShip);
+  }
+  animShip();
+}
+
+// X MARK PULSE
+const xMark=document.getElementById('xMark');
+if(xMark){
+  let xs=1,xd=1;
+  function pulseX(){
+    xs+=0.004*xd;if(xs>1.25)xd=-1;if(xs<1.0)xd=1;
+    xMark.style.transform=`scale(${xs})`;xMark.style.transformOrigin='0px -26px';
+    requestAnimationFrame(pulseX);
+  }
+  pulseX();
+}
+
+// SCROLL REVEAL
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.style.animation='slideUp 0.6s ease forwards';obs.unobserve(e.target);}});
+},{threshold:0.1});
+document.querySelectorAll('.toko-card,.step,.loop-node,.nft-q').forEach(el=>{el.style.opacity='0';obs.observe(el);});
+
+// TITLE GLITCH RANDOM
+const ttl=document.querySelector('.hero-title');
+if(ttl)setInterval(()=>{if(Math.random()>0.85){ttl.style.letterSpacing=`${0.01+Math.random()*0.05}em`;setTimeout(()=>ttl.style.letterSpacing='0.01em',80);}},2000);
+</script>
+</body>
+</html>
