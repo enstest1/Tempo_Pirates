@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useAccount, useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
 import toast from 'react-hot-toast'
-import abi from '../abi/TempoPirate.json'
+import artifact from '../abi/TempoPirate.json'
+const abi = artifact.abi
 
 const CONTRACT = import.meta.env.VITE_TPIRATE_ADDRESS as `0x${string}`
 

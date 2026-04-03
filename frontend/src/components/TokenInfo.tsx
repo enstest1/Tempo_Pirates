@@ -1,5 +1,6 @@
 import { useAccount, useReadContract } from 'wagmi'
-import abi from '../abi/TempoPirate.json'
+import artifact from '../abi/TempoPirate.json'
+const abi = artifact.abi
 
 const CONTRACT = import.meta.env.VITE_TPIRATE_ADDRESS as `0x${string}`
 const DECIMALS  = 1_000_000n
