@@ -222,8 +222,67 @@ footer{background:#000;color:var(--cream);text-align:center;padding:36px 24px;fo
   <a href="https://app.uniswap.org/swap?chain=tempo&outputCurrency=0x8753bB308BCb6972D298c03f997d10CcE781D65D" target="_blank" class="nav-cta">Buy TPirate</a>
 </nav>
 
+<!-- MINT PROGRESS + CHEST (above hero, below nav) -->
+<div id="progress" class="hero-mint-row" style="padding:80px 24px 20px;background:var(--bg);">
+  <div class="hero-mint-left">
+    <div style="display:flex;align-items:baseline;justify-content:center;gap:10px;margin-bottom:4px;">
+      <span class="mint-pct" id="mintPct" style="font-size:clamp(36px,8vw,60px);">—%</span>
+      <span class="mint-pct-label" style="font-size:12px;margin-bottom:0;">Claimed</span>
+    </div>
+    <div class="mint-bar-wrap" style="height:18px;margin-bottom:8px;">
+      <div class="mint-bar-fill" id="mintBarFill" style="width:0%"></div>
+      <div class="mint-bar-glow" id="mintBarGlow" style="--fill:0%"></div>
+    </div>
+    <div class="mint-nums" style="margin-bottom:8px;font-size:11px;">
+      <span id="mintCurrent">Loading...</span>
+      <span id="mintMax">1,000,000,000 TPirate</span>
+    </div>
+    <div class="mint-stats" style="gap:20px;margin-bottom:6px;">
+      <div class="mint-stat">
+        <div class="mint-stat-val" id="mintRemaining" style="font-size:clamp(18px,3vw,26px);">—</div>
+        <div class="mint-stat-lbl">Remaining</div>
+      </div>
+      <div class="mint-stat">
+        <div class="mint-stat-val" style="font-size:clamp(18px,3vw,26px);">1,000</div>
+        <div class="mint-stat-lbl">Free / Claim</div>
+      </div>
+      <div class="mint-stat">
+        <div class="mint-stat-val" style="font-size:clamp(18px,3vw,26px);">24h</div>
+        <div class="mint-stat-lbl">Cooldown</div>
+      </div>
+    </div>
+    <p class="mint-urgency" style="font-size:11px;margin:0;"><span class="mint-live-dot"></span> <strong>Once it's gone, it's gone.</strong> No more minting. Ever.</p>
+  </div>
+  <div class="hero-mint-right">
+    <a href="/app/" target="_blank" class="chest-btn" style="margin:0;">
+      <svg class="chest-svg" viewBox="0 0 120 90" width="110" height="82" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="chestWood2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8B5E3C"/><stop offset="100%" stop-color="#5C3310"/></linearGradient>
+          <linearGradient id="chestLid2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7A4E2D"/><stop offset="100%" stop-color="#4A2508"/></linearGradient>
+          <radialGradient id="chestGlow2" cx="50%" cy="30%"><stop offset="0%" stop-color="#f5c518" stop-opacity="0.6"/><stop offset="100%" stop-color="#f5c518" stop-opacity="0"/></radialGradient>
+        </defs>
+        <ellipse cx="60" cy="20" rx="50" ry="30" fill="url(#chestGlow2)" class="chest-glow-el"/>
+        <rect x="15" y="42" width="90" height="40" rx="4" fill="url(#chestWood2)" stroke="#c49a10" stroke-width="2"/>
+        <rect x="15" y="42" width="90" height="8" fill="#6a3810" opacity="0.5"/>
+        <line x1="38" y1="42" x2="38" y2="82" stroke="#4a2508" stroke-width="1.5" opacity="0.4"/>
+        <line x1="82" y1="42" x2="82" y2="82" stroke="#4a2508" stroke-width="1.5" opacity="0.4"/>
+        <path d="M15 46 Q60 20 105 46" fill="url(#chestLid2)" stroke="#c49a10" stroke-width="2"/>
+        <path d="M20 44 Q60 24 100 44" fill="none" stroke="#f5c518" stroke-width="0.8" opacity="0.3"/>
+        <rect x="52" y="38" width="16" height="12" rx="3" fill="#f5c518" stroke="#7a5f08" stroke-width="1.5"/>
+        <rect x="56" y="42" width="8" height="5" rx="1" fill="none" stroke="#7a5f08" stroke-width="1.5"/>
+        <circle cx="36" cy="62" r="6" fill="#f5c518" opacity="0.9"/><text x="36" y="66" text-anchor="middle" font-size="8" font-weight="900" fill="#3d1f00">$</text>
+        <circle cx="84" cy="62" r="6" fill="#f5c518" opacity="0.9"/><text x="84" y="66" text-anchor="middle" font-size="8" font-weight="900" fill="#3d1f00">☠</text>
+        <circle cx="48" cy="56" r="4" fill="#c49a10" opacity="0.7"/>
+        <circle cx="72" cy="56" r="4" fill="#c49a10" opacity="0.7"/>
+        <rect x="18" y="74" width="84" height="4" rx="1" fill="#c49a10" opacity="0.5"/>
+      </svg>
+      <span class="chest-label">Claim Free TPirate</span>
+    </a>
+  </div>
+</div>
+
 <!-- HERO -->
-<section class="hero">
+<section class="hero" style="padding-top:40px;">
   <div class="hero-bg-glow"></div>
   <span class="scatter" style="top:14%;left:5%;transform:rotate(-14deg)">Chain ID · 4217</span>
   <span class="scatter" style="top:22%;right:7%;transform:rotate(9deg)">Tempo Mainnet</span>
@@ -234,65 +293,6 @@ footer{background:#000;color:var(--cream);text-align:center;padding:36px 24px;fo
   <div class="fskulls" style="top:12%;left:9%;--fs:36px;--fo:0.06;--fd:7s;--fda:-2s">☠</div>
   <div class="fskulls" style="top:25%;right:11%;--fs:20px;--fo:0.05;--fd:5s;--fda:-4s">☠</div>
   <div class="fskulls" style="bottom:28%;left:7%;--fs:44px;--fo:0.04;--fd:8s;--fda:-1s">☠</div>
-  <!-- MINT PROGRESS + CHEST (in blank space above circle) -->
-  <div id="progress" class="hero-mint-row">
-    <div class="hero-mint-left">
-      <div style="display:flex;align-items:baseline;justify-content:center;gap:10px;margin-bottom:4px;">
-        <span class="mint-pct" id="mintPct" style="font-size:clamp(36px,8vw,60px);">—%</span>
-        <span class="mint-pct-label" style="font-size:12px;margin-bottom:0;">Claimed</span>
-      </div>
-      <div class="mint-bar-wrap" style="height:18px;margin-bottom:8px;">
-        <div class="mint-bar-fill" id="mintBarFill" style="width:0%"></div>
-        <div class="mint-bar-glow" id="mintBarGlow" style="--fill:0%"></div>
-      </div>
-      <div class="mint-nums" style="margin-bottom:8px;font-size:11px;">
-        <span id="mintCurrent">Loading...</span>
-        <span id="mintMax">1,000,000,000 TPirate</span>
-      </div>
-      <div class="mint-stats" style="gap:20px;margin-bottom:6px;">
-        <div class="mint-stat">
-          <div class="mint-stat-val" id="mintRemaining" style="font-size:clamp(18px,3vw,26px);">—</div>
-          <div class="mint-stat-lbl">Remaining</div>
-        </div>
-        <div class="mint-stat">
-          <div class="mint-stat-val" style="font-size:clamp(18px,3vw,26px);">1,000</div>
-          <div class="mint-stat-lbl">Free / Claim</div>
-        </div>
-        <div class="mint-stat">
-          <div class="mint-stat-val" style="font-size:clamp(18px,3vw,26px);">24h</div>
-          <div class="mint-stat-lbl">Cooldown</div>
-        </div>
-      </div>
-      <p class="mint-urgency" style="font-size:11px;margin:0;"><span class="mint-live-dot"></span> <strong>Once it's gone, it's gone.</strong> No more minting. Ever.</p>
-    </div>
-    <div class="hero-mint-right">
-      <a href="/app/" target="_blank" class="chest-btn" style="margin:0;">
-        <svg class="chest-svg" viewBox="0 0 120 90" width="110" height="82" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="chestWood2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8B5E3C"/><stop offset="100%" stop-color="#5C3310"/></linearGradient>
-            <linearGradient id="chestLid2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7A4E2D"/><stop offset="100%" stop-color="#4A2508"/></linearGradient>
-            <radialGradient id="chestGlow2" cx="50%" cy="30%"><stop offset="0%" stop-color="#f5c518" stop-opacity="0.6"/><stop offset="100%" stop-color="#f5c518" stop-opacity="0"/></radialGradient>
-          </defs>
-          <ellipse cx="60" cy="20" rx="50" ry="30" fill="url(#chestGlow2)" class="chest-glow-el"/>
-          <rect x="15" y="42" width="90" height="40" rx="4" fill="url(#chestWood2)" stroke="#c49a10" stroke-width="2"/>
-          <rect x="15" y="42" width="90" height="8" fill="#6a3810" opacity="0.5"/>
-          <line x1="38" y1="42" x2="38" y2="82" stroke="#4a2508" stroke-width="1.5" opacity="0.4"/>
-          <line x1="82" y1="42" x2="82" y2="82" stroke="#4a2508" stroke-width="1.5" opacity="0.4"/>
-          <path d="M15 46 Q60 20 105 46" fill="url(#chestLid2)" stroke="#c49a10" stroke-width="2"/>
-          <path d="M20 44 Q60 24 100 44" fill="none" stroke="#f5c518" stroke-width="0.8" opacity="0.3"/>
-          <rect x="52" y="38" width="16" height="12" rx="3" fill="#f5c518" stroke="#7a5f08" stroke-width="1.5"/>
-          <rect x="56" y="42" width="8" height="5" rx="1" fill="none" stroke="#7a5f08" stroke-width="1.5"/>
-          <circle cx="36" cy="62" r="6" fill="#f5c518" opacity="0.9"/><text x="36" y="66" text-anchor="middle" font-size="8" font-weight="900" fill="#3d1f00">$</text>
-          <circle cx="84" cy="62" r="6" fill="#f5c518" opacity="0.9"/><text x="84" y="66" text-anchor="middle" font-size="8" font-weight="900" fill="#3d1f00">☠</text>
-          <circle cx="48" cy="56" r="4" fill="#c49a10" opacity="0.7"/>
-          <circle cx="72" cy="56" r="4" fill="#c49a10" opacity="0.7"/>
-          <rect x="18" y="74" width="84" height="4" rx="1" fill="#c49a10" opacity="0.5"/>
-        </svg>
-        <span class="chest-label">Claim Free TPirate</span>
-      </a>
-    </div>
-  </div>
-
   <div class="hero-pill"><div class="live-dot"></div>Live on Tempo Mainnet · Chain ID 4217</div>
   <div class="hero-eyebrow">☠ &nbsp;&nbsp; Buy TPirate. Mint A Pirate. &nbsp;&nbsp; ☠</div>
   <div style="position:relative">
