@@ -247,64 +247,6 @@ footer{background:#000;color:var(--cream);text-align:center;padding:36px 24px;fo
     <span class="badge-arrow">→</span>
     <span>Join The Crew ☠</span>
   </div>
-
-  <!-- MINT PROGRESS + CHEST (above logo) -->
-  <div id="progress" style="position:relative;z-index:2;width:100%;max-width:520px;margin:24px auto 12px;">
-    <div style="display:flex;align-items:baseline;justify-content:center;gap:12px;margin-bottom:6px;">
-      <span class="mint-pct" id="mintPct" style="font-size:clamp(42px,9vw,72px);">—%</span>
-      <span class="mint-pct-label" style="font-size:13px;margin-bottom:0;">Claimed</span>
-    </div>
-    <div class="mint-bar-wrap" style="height:22px;margin-bottom:10px;">
-      <div class="mint-bar-fill" id="mintBarFill" style="width:0%"></div>
-      <div class="mint-bar-glow" id="mintBarGlow" style="--fill:0%"></div>
-    </div>
-    <div class="mint-nums" style="margin-bottom:12px;">
-      <span id="mintCurrent">Loading...</span>
-      <span id="mintMax">1,000,000,000 TPirate</span>
-    </div>
-    <div class="mint-stats" style="gap:28px;margin-bottom:8px;">
-      <div class="mint-stat">
-        <div class="mint-stat-val" id="mintRemaining" style="font-size:clamp(20px,3.5vw,30px);">—</div>
-        <div class="mint-stat-lbl">Remaining</div>
-      </div>
-      <div class="mint-stat">
-        <div class="mint-stat-val" style="font-size:clamp(20px,3.5vw,30px);">1,000</div>
-        <div class="mint-stat-lbl">Free Per Claim</div>
-      </div>
-      <div class="mint-stat">
-        <div class="mint-stat-val" style="font-size:clamp(20px,3.5vw,30px);">24h</div>
-        <div class="mint-stat-lbl">Cooldown</div>
-      </div>
-    </div>
-    <p class="mint-urgency" style="font-size:12px;margin-bottom:0;"><span class="mint-live-dot"></span> <strong>Once it's gone, it's gone.</strong> No more minting. Ever.</p>
-  </div>
-
-  <!-- TREASURE CHEST -->
-  <a href="/app/" target="_blank" class="chest-btn" style="position:relative;z-index:2;margin:12px 0 4px;">
-    <svg class="chest-svg" viewBox="0 0 120 90" width="120" height="90" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="chestWood2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8B5E3C"/><stop offset="100%" stop-color="#5C3310"/></linearGradient>
-        <linearGradient id="chestLid2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7A4E2D"/><stop offset="100%" stop-color="#4A2508"/></linearGradient>
-        <radialGradient id="chestGlow2" cx="50%" cy="30%"><stop offset="0%" stop-color="#f5c518" stop-opacity="0.6"/><stop offset="100%" stop-color="#f5c518" stop-opacity="0"/></radialGradient>
-      </defs>
-      <ellipse cx="60" cy="20" rx="50" ry="30" fill="url(#chestGlow2)" class="chest-glow-el"/>
-      <rect x="15" y="42" width="90" height="40" rx="4" fill="url(#chestWood2)" stroke="#c49a10" stroke-width="2"/>
-      <rect x="15" y="42" width="90" height="8" fill="#6a3810" opacity="0.5"/>
-      <line x1="38" y1="42" x2="38" y2="82" stroke="#4a2508" stroke-width="1.5" opacity="0.4"/>
-      <line x1="82" y1="42" x2="82" y2="82" stroke="#4a2508" stroke-width="1.5" opacity="0.4"/>
-      <path d="M15 46 Q60 20 105 46" fill="url(#chestLid2)" stroke="#c49a10" stroke-width="2"/>
-      <path d="M20 44 Q60 24 100 44" fill="none" stroke="#f5c518" stroke-width="0.8" opacity="0.3"/>
-      <rect x="52" y="38" width="16" height="12" rx="3" fill="#f5c518" stroke="#7a5f08" stroke-width="1.5"/>
-      <rect x="56" y="42" width="8" height="5" rx="1" fill="none" stroke="#7a5f08" stroke-width="1.5"/>
-      <circle cx="36" cy="62" r="6" fill="#f5c518" opacity="0.9"/><text x="36" y="66" text-anchor="middle" font-size="8" font-weight="900" fill="#3d1f00">$</text>
-      <circle cx="84" cy="62" r="6" fill="#f5c518" opacity="0.9"/><text x="84" y="66" text-anchor="middle" font-size="8" font-weight="900" fill="#3d1f00">☠</text>
-      <circle cx="48" cy="56" r="4" fill="#c49a10" opacity="0.7"/>
-      <circle cx="72" cy="56" r="4" fill="#c49a10" opacity="0.7"/>
-      <rect x="18" y="74" width="84" height="4" rx="1" fill="#c49a10" opacity="0.5"/>
-    </svg>
-    <span class="chest-label">Open Chest · Claim Free TPirate</span>
-  </a>
-
   <div class="logo-area" id="logoArea">
     <svg viewBox="0 0 340 128" width="340" height="128" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -362,6 +304,61 @@ footer{background:#000;color:var(--cream);text-align:center;padding:36px 24px;fo
     <a href="#nft" class="btn-red">Mint The Pirates →</a>
   </div>
   <p class="hero-disclaimer">Not financial advice. Pirates sail at their own risk. Tempo Chain.</p>
+</section>
+
+<!-- MINT PROGRESS + TREASURE CHEST -->
+<section id="progress" class="mint-progress-section">
+  <div class="mint-progress-inner">
+    <a href="/app/" target="_blank" class="chest-btn">
+      <svg class="chest-svg" viewBox="0 0 120 90" width="140" height="105" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="chestWood2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8B5E3C"/><stop offset="100%" stop-color="#5C3310"/></linearGradient>
+          <linearGradient id="chestLid2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7A4E2D"/><stop offset="100%" stop-color="#4A2508"/></linearGradient>
+          <radialGradient id="chestGlow2" cx="50%" cy="30%"><stop offset="0%" stop-color="#f5c518" stop-opacity="0.6"/><stop offset="100%" stop-color="#f5c518" stop-opacity="0"/></radialGradient>
+        </defs>
+        <ellipse cx="60" cy="20" rx="50" ry="30" fill="url(#chestGlow2)" class="chest-glow-el"/>
+        <rect x="15" y="42" width="90" height="40" rx="4" fill="url(#chestWood2)" stroke="#c49a10" stroke-width="2"/>
+        <rect x="15" y="42" width="90" height="8" fill="#6a3810" opacity="0.5"/>
+        <line x1="38" y1="42" x2="38" y2="82" stroke="#4a2508" stroke-width="1.5" opacity="0.4"/>
+        <line x1="82" y1="42" x2="82" y2="82" stroke="#4a2508" stroke-width="1.5" opacity="0.4"/>
+        <path d="M15 46 Q60 20 105 46" fill="url(#chestLid2)" stroke="#c49a10" stroke-width="2"/>
+        <path d="M20 44 Q60 24 100 44" fill="none" stroke="#f5c518" stroke-width="0.8" opacity="0.3"/>
+        <rect x="52" y="38" width="16" height="12" rx="3" fill="#f5c518" stroke="#7a5f08" stroke-width="1.5"/>
+        <rect x="56" y="42" width="8" height="5" rx="1" fill="none" stroke="#7a5f08" stroke-width="1.5"/>
+        <circle cx="36" cy="62" r="6" fill="#f5c518" opacity="0.9"/><text x="36" y="66" text-anchor="middle" font-size="8" font-weight="900" fill="#3d1f00">$</text>
+        <circle cx="84" cy="62" r="6" fill="#f5c518" opacity="0.9"/><text x="84" y="66" text-anchor="middle" font-size="8" font-weight="900" fill="#3d1f00">☠</text>
+        <circle cx="48" cy="56" r="4" fill="#c49a10" opacity="0.7"/>
+        <circle cx="72" cy="56" r="4" fill="#c49a10" opacity="0.7"/>
+        <rect x="18" y="74" width="84" height="4" rx="1" fill="#c49a10" opacity="0.5"/>
+      </svg>
+      <span class="chest-label">Open Chest · Claim Free TPirate</span>
+    </a>
+    <div class="mint-pct" id="mintPct">—%</div>
+    <div class="mint-pct-label">of Total Supply Claimed</div>
+    <div class="mint-bar-wrap">
+      <div class="mint-bar-fill" id="mintBarFill" style="width:0%"></div>
+      <div class="mint-bar-glow" id="mintBarGlow" style="--fill:0%"></div>
+    </div>
+    <div class="mint-nums">
+      <span id="mintCurrent">Loading...</span>
+      <span id="mintMax">1,000,000,000 TPirate</span>
+    </div>
+    <div class="mint-stats">
+      <div class="mint-stat">
+        <div class="mint-stat-val" id="mintRemaining">—</div>
+        <div class="mint-stat-lbl">TPirate Remaining</div>
+      </div>
+      <div class="mint-stat">
+        <div class="mint-stat-val">1,000</div>
+        <div class="mint-stat-lbl">Free Per Claim</div>
+      </div>
+      <div class="mint-stat">
+        <div class="mint-stat-val">24h</div>
+        <div class="mint-stat-lbl">Cooldown</div>
+      </div>
+    </div>
+    <p class="mint-urgency"><span class="mint-live-dot"></span> <strong>Once it's gone, it's gone.</strong> No more minting. Ever. The max supply is hard-coded in the contract — not even the deployer can change it.</p>
+  </div>
 </section>
 
 <div class="stripe"></div>
