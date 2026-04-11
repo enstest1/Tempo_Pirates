@@ -68,6 +68,26 @@ section{position:relative;z-index:10;padding:88px 24px;}
 .sec-title{font-family:'Pirata One',cursive;font-size:clamp(38px,7vw,80px);color:var(--gold);text-transform:uppercase;text-align:center;margin-bottom:8px;letter-spacing:0.02em;text-shadow:2px 2px 0 var(--red);}
 .sec-sub{text-align:center;font-family:'Bebas Neue',sans-serif;color:var(--cream);opacity:0.35;font-size:12px;letter-spacing:0.45em;text-transform:uppercase;margin-bottom:52px;}
 
+/* ── MINT PROGRESS ── */
+.mint-progress-section{background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);padding:72px 24px 80px;position:relative;overflow:hidden;}
+.mint-progress-section::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#f5c51860,transparent);}
+.mint-progress-inner{max-width:680px;margin:0 auto;text-align:center;}
+.mint-pct{font-family:'Cinzel Decorative',serif;font-size:clamp(64px,14vw,120px);font-weight:900;color:var(--gold);line-height:1;text-shadow:0 0 60px #f5c51850,0 0 120px #f5c51820;margin-bottom:4px;transition:all 0.6s ease;}
+.mint-pct-label{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.5em;color:var(--red);text-transform:uppercase;margin-bottom:32px;}
+.mint-bar-wrap{position:relative;height:32px;background:var(--bg);border:2px solid #f5c51835;border-radius:2px;overflow:hidden;margin-bottom:16px;}
+.mint-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold3),var(--gold2),var(--gold));border-radius:1px;transition:width 1.2s cubic-bezier(.4,0,.2,1);position:relative;min-width:2px;}
+.mint-bar-fill::after{content:'';position:absolute;top:0;right:0;width:40px;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3));animation:barShine 2s ease-in-out infinite;}
+.mint-bar-glow{position:absolute;top:-4px;bottom:-4px;left:0;width:var(--fill,10%);transition:width 1.2s cubic-bezier(.4,0,.2,1);background:linear-gradient(90deg,transparent 80%,#f5c51840);pointer-events:none;border-radius:2px;}
+@keyframes barShine{0%,100%{opacity:0.3;}50%{opacity:1;}}
+.mint-nums{display:flex;justify-content:space-between;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:0.15em;color:var(--cream);opacity:0.45;margin-bottom:36px;}
+.mint-stats{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-bottom:28px;}
+.mint-stat{text-align:center;}
+.mint-stat-val{font-family:'Cinzel Decorative',serif;font-size:clamp(24px,4vw,36px);font-weight:700;color:var(--gold);line-height:1.1;}
+.mint-stat-lbl{font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:0.3em;color:var(--cream);opacity:0.35;text-transform:uppercase;margin-top:4px;}
+.mint-urgency{font-size:14px;color:var(--cream);opacity:0.55;font-style:italic;line-height:1.7;max-width:500px;margin:0 auto;}
+.mint-urgency strong{color:var(--gold);font-style:normal;}
+.mint-live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#22ff88;box-shadow:0 0 8px #22ff88;animation:pulse 1.4s ease-in-out infinite;vertical-align:middle;margin-right:8px;}
+
 /* ── THE LOOP ── */
 .loop-section{background:var(--bg2);border-top:1px solid #f5c51825;border-bottom:1px solid #f5c51825;}
 .loop-inner{max-width:1000px;margin:0 auto;}
@@ -180,6 +200,7 @@ footer{background:#000;color:var(--cream);text-align:center;padding:36px 24px;fo
 <nav>
   <div class="nav-logo">☠ Tempo Pirate</div>
   <div class="nav-links">
+    <a href="#progress">Mint Progress</a>
     <a href="#loop">The Loop</a>
     <a href="#map">Treasure Map</a>
     <a href="#nft">NFT</a>
@@ -283,6 +304,37 @@ footer{background:#000;color:var(--cream);text-align:center;padding:36px 24px;fo
   <span class="ticker-item">☠ TPirate = Your Mint Pass</span><span class="ticker-item">· NGMI if you miss this ·</span>
 </div></div>
 <div class="stripe"></div>
+
+<!-- MINT PROGRESS -->
+<section id="progress" class="mint-progress-section">
+  <div class="mint-progress-inner">
+    <div class="mint-pct" id="mintPct">—%</div>
+    <div class="mint-pct-label">of Total Supply Claimed</div>
+    <div class="mint-bar-wrap">
+      <div class="mint-bar-fill" id="mintBarFill" style="width:0%"></div>
+      <div class="mint-bar-glow" id="mintBarGlow" style="--fill:0%"></div>
+    </div>
+    <div class="mint-nums">
+      <span id="mintCurrent">Loading...</span>
+      <span id="mintMax">1,000,000,000 TPirate</span>
+    </div>
+    <div class="mint-stats">
+      <div class="mint-stat">
+        <div class="mint-stat-val" id="mintRemaining">—</div>
+        <div class="mint-stat-lbl">TPirate Remaining</div>
+      </div>
+      <div class="mint-stat">
+        <div class="mint-stat-val">1,000</div>
+        <div class="mint-stat-lbl">Free Per Claim</div>
+      </div>
+      <div class="mint-stat">
+        <div class="mint-stat-val">24h</div>
+        <div class="mint-stat-lbl">Cooldown</div>
+      </div>
+    </div>
+    <p class="mint-urgency"><span class="mint-live-dot"></span> <strong>Once it's gone, it's gone.</strong> No more minting. Ever. The max supply is hard-coded in the contract — not even the deployer can change it.</p>
+  </div>
+</section>
 
 <!-- THE LOOP -->
 <section id="loop" class="loop-section">
@@ -762,6 +814,54 @@ document.querySelectorAll('.toko-card,.step,.loop-node,.nft-q').forEach(el=>{el.
 // TITLE GLITCH RANDOM
 const ttl=document.querySelector('.hero-title');
 if(ttl)setInterval(()=>{if(Math.random()>0.85){ttl.style.letterSpacing=`${0.01+Math.random()*0.05}em`;setTimeout(()=>ttl.style.letterSpacing='0.01em',80);}},2000);
+
+// ── LIVE MINT PROGRESS ──
+(function(){
+  const RPC='https://tempo.drpc.org';
+  const CONTRACT='0x8753bB308BCb6972D298c03f997d10CcE781D65D';
+  const MAX_RAW=1000000000000000n; // 1B * 10^6 decimals
+  const DECIMALS=1000000n;
+
+  function fmt(n){return n.toLocaleString('en-US');}
+
+  async function fetchSupply(){
+    try{
+      const res=await fetch(RPC,{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({jsonrpc:'2.0',method:'eth_call',params:[{to:CONTRACT,data:'0x18160ddd'},'latest'],id:1})
+      });
+      const json=await res.json();
+      if(json.result)return BigInt(json.result);
+    }catch(e){console.warn('Mint progress fetch failed:',e);}
+    return null;
+  }
+
+  async function update(){
+    const raw=await fetchSupply();
+    if(raw===null)return;
+
+    const supply=raw/DECIMALS;
+    const max=MAX_RAW/DECIMALS;
+    const remaining=max-supply;
+    const pct=Number(raw*10000n/MAX_RAW)/100;
+
+    const pctEl=document.getElementById('mintPct');
+    const fillEl=document.getElementById('mintBarFill');
+    const glowEl=document.getElementById('mintBarGlow');
+    const curEl=document.getElementById('mintCurrent');
+    const remEl=document.getElementById('mintRemaining');
+
+    if(pctEl)pctEl.textContent=pct.toFixed(1)+'%';
+    if(fillEl)fillEl.style.width=Math.max(pct,0.5)+'%';
+    if(glowEl)glowEl.style.setProperty('--fill',Math.max(pct,0.5)+'%');
+    if(curEl)curEl.textContent=fmt(Number(supply))+' TPirate Minted';
+    if(remEl)remEl.textContent=fmt(Number(remaining));
+  }
+
+  update();
+  setInterval(update,30000);
+})();
 </script>
 </body>
 </html>
