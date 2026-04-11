@@ -78,10 +78,11 @@ section{position:relative;z-index:10;padding:88px 24px;}
 .chest-btn:hover .chest-label{opacity:1;text-shadow:0 0 12px #f5c51860;}
 @keyframes chestPulse{0%,100%{filter:drop-shadow(0 0 12px #f5c51840);}50%{filter:drop-shadow(0 0 28px #f5c51870);}}
 
-/* ── MINT PROGRESS (inline hero) ── */
-.hero-mint-row{position:relative;z-index:20;display:flex;align-items:center;justify-content:center;gap:24px;width:100%;max-width:740px;margin:0 auto 16px;flex-wrap:wrap;}
+/* ── MINT PROGRESS (above hero) ── */
+.hero-mint-row{position:relative;z-index:20;display:flex;align-items:center;justify-content:center;gap:28px;width:100%;max-width:740px;margin:0 auto;flex-wrap:wrap;}
 .hero-mint-left{flex:1;min-width:280px;text-align:center;}
 .hero-mint-right{flex:0 0 auto;display:flex;align-items:center;}
+.mint-separator{width:100%;max-width:400px;height:1px;margin:0 auto;background:linear-gradient(90deg,transparent,#f5c51840,transparent);}
 @media(max-width:700px){.hero-mint-row{flex-direction:column;gap:12px;}.hero-mint-right{order:-1;}}
 .mint-pct{font-family:'Cinzel Decorative',serif;font-size:clamp(64px,14vw,120px);font-weight:900;color:var(--gold);line-height:1;text-shadow:0 0 60px #f5c51850,0 0 120px #f5c51820;margin-bottom:4px;transition:all 0.6s ease;}
 .mint-pct-label{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.5em;color:var(--red);text-transform:uppercase;margin-bottom:32px;}
@@ -223,7 +224,7 @@ footer{background:#000;color:var(--cream);text-align:center;padding:36px 24px;fo
 </nav>
 
 <!-- MINT PROGRESS + CHEST (above hero, below nav) -->
-<div id="progress" class="hero-mint-row" style="padding:80px 24px 20px;background:var(--bg);">
+<div id="progress" class="hero-mint-row" style="padding:100px 24px 32px;background:var(--bg);">
   <div class="hero-mint-left">
     <div style="display:flex;align-items:baseline;justify-content:center;gap:10px;margin-bottom:4px;">
       <span class="mint-pct" id="mintPct" style="font-size:clamp(36px,8vw,60px);">—%</span>
@@ -280,9 +281,10 @@ footer{background:#000;color:var(--cream);text-align:center;padding:36px 24px;fo
     </a>
   </div>
 </div>
+<div class="mint-separator"></div>
 
 <!-- HERO -->
-<section class="hero" style="padding-top:40px;">
+<section class="hero" style="padding-top:60px;min-height:auto;padding-bottom:80px;">
   <div class="hero-bg-glow"></div>
   <span class="scatter" style="top:14%;left:5%;transform:rotate(-14deg)">Chain ID · 4217</span>
   <span class="scatter" style="top:22%;right:7%;transform:rotate(9deg)">Tempo Mainnet</span>
