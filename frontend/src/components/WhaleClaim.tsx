@@ -82,7 +82,7 @@ export function WhaleClaim() {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success('Whale claimed 10,000 TPirate! 🐋', {
+      toast.success('Whel claimed 10,000 TPirate! 🐋', {
         style: {
           background: '#111118',
           color:      '#00d4ff',
@@ -130,9 +130,9 @@ export function WhaleClaim() {
     ? (Number(claimAmount) / 1e6).toLocaleString()
     : '10,000'
 
-  let buttonLabel = `Whale Claim ${formattedClaimAmt} TPirate`
+  let buttonLabel = `Whel Claim ${formattedClaimAmt} TPirate`
   if (!address)           buttonLabel = 'Connect Wallet First'
-  else if (!hasWhale)     buttonLabel = 'No Stable Whale NFT Found'
+  else if (!hasWhale)     buttonLabel = 'No Stable Whel NFT Found'
   else if (isPending)     buttonLabel = 'Confirm in Wallet...'
   else if (isConfirming)  buttonLabel = 'Claiming...'
   else if (onCooldown)    buttonLabel = `Cooldown: ${formatCooldown(secsLeft)}`
@@ -182,7 +182,7 @@ export function WhaleClaim() {
             letterSpacing: '0.05em',
           }}
         >
-          Whale Faucet
+          Whel Faucet
         </h2>
         {hasWhale && (
           <span
@@ -198,13 +198,13 @@ export function WhaleClaim() {
               textTransform: 'uppercase',
             }}
           >
-            Whale Holder
+            Whel Holder
           </span>
         )}
       </div>
 
       <p style={{ color: '#00d4ff99', fontSize: 13, margin: 0, lineHeight: 1.5 }}>
-        Hold a <strong style={{ color: '#00d4ff' }}>Stable Whale NFT</strong> to claim{' '}
+        Hold a <strong style={{ color: '#00d4ff' }}>Stable Whel NFT</strong> to claim{' '}
         <strong style={{ color: '#00d4ff' }}>{formattedClaimAmt} TPirate</strong> every 12 hours.
         {' '}10x the regular faucet.
       </p>
