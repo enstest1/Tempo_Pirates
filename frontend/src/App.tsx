@@ -5,6 +5,7 @@ import { config }                 from './wagmi.config'
 import { WalletConnect }          from './components/WalletConnect'
 import { TokenInfo }              from './components/TokenInfo'
 import { MintTokens }             from './components/MintTokens'
+import { WhaleClaim }             from './components/WhaleClaim'
 
 const queryClient = new QueryClient()
 
@@ -83,6 +84,7 @@ export default function App() {
             <WalletConnect />
             <TokenInfo />
             <MintTokens />
+            <WhaleClaim />
 
             {/* ── Footer ── */}
             <p
